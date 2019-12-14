@@ -1,17 +1,20 @@
 const { db, Plant } = require('../server/db');
-// const fs = require('fs');
 const data = require('./Tandem_Data.json');
 
-function seedDatabaseWithPlants() {
-  //   await Promise.all(
-  //     data.forEach(plant => {
-  //       Plant.create({
-  //         name: plant.name,
-  //         waterAfter: plant.water_after,
-  //       });
-  //     })
-  //   );
-  console.log(data);
+async function seedDatabaseWithPlants() {
+  await db.sync({ force: true });
+  await Promise.all(
+    data.map(plant => {
+      const waterAfter = getDaysFromString(plant.water_after);
+      const p = { name: plant.name, waterAfter: waterAfter };
+      Plant.create(p);
+    })
+  );
+}
+
+function getDaysFromString(str) {
+  let daysUntilWater = str.slice(0, str.indexOf(' '));
+  return Number(daysUntilWater);
 }
 
 seedDatabaseWithPlants();
