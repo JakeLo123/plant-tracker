@@ -6,19 +6,29 @@
   "scripts": {
     "seed": "node scripts/seed.js",
     "start": "node server",
+    "dev": "webpack -w & nodemon server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Jake Loew",
   "license": "ISC",
   "dependencies": {
+    "@babel/core": "^7.7.5",
+    "@babel/preset-env": "^7.7.6",
+    "@babel/preset-react": "^7.7.4",
+    "babel-loader": "^8.0.6",
     "cron": "^1.7.2",
     "express": "^4.17.1",
     "morgan": "^1.9.1",
     "pg": "^7.14.0",
     "pg-hstore": "^2.3.3",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
     "sequelize": "^5.21.3"
   },
   "devDependencies": {
-    "mocha": "^6.2.2"
+    "mocha": "^6.2.2",
+    "nodemon": "^2.0.2",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
   }
 }

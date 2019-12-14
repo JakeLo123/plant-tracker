@@ -2,15 +2,15 @@ const express = require('express');
 const app = express();
 const morgan = require('morgan');
 const { db } = require('./db');
+const path = require('path')
 
 function createApp() {
   app.use(morgan('dev'));
+  app.use(express.static(path.join(__dirname, '..', 'public')));
   //   app.use(express.json());
   //   app.use(express.urlencoded({ extended: true }));
 
-  app.get('*', (req, res) => {
-    res.send('got to GET *');
-  });
+  app.use('/api', require('./api'))
 
   app.use((err, req, res, next) => {
     console.error(err);
