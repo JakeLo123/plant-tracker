@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const db = require('./database');
+const { getDateValueFromDays } = require('../../utils')
 
 const Plant = db.define('plant', {
   name: {
@@ -12,29 +13,22 @@ const Plant = db.define('plant', {
   },
   lastWateringDate: {
     type: Sequelize.DATEONLY,
-    defaultValue: new Date('2019-12-15')
+    defaultValue: new Date('December 16, 2019')
   }
 });
 
 // instance methods
-Plant.prototype.getTimeSinceLastWater = function(){
-  let timeSinceLastWater = new Date(this.lastWateringDate);
-  return new Date() - timeSinceLastWater;
-}
-
-Plant.prototype.needsWater = function(){
-  let oneDay = 86400000;
-  let timeSinceLastWater = this.getTimeSinceLastWater();
-  let timeUntilNeedsWater = this.waterAfter * oneDay;
-  return timeSinceLastWater > timeUntilNeedsWater;
-}
-
-Plant.prototype.needsWaterOnDate = function(date){
-  let oneDay = 86400000;
-  let timeUntilNeedsWater = this.waterAfter * oneDay;
-  let lastWateringDate = new Date(this.lastWateringDate);
-  let needsWaterOnDate = date - lastWateringDate
-  return timeUntilNeedsWater > needsWaterOnDate;
+Plant.prototype.getSchedule = function(){
+  const finalWateringDate = new Date('March 17, 2020');
+  const oneDay = 86400000
+  const interval = this.waterAfter * oneDay;
+  let schedule = []
+  let currentDate = Date.parse(this.lastWateringDate)
+  while(currentDate < finalWateringDate){
+    schedule.push(new Date(currentDate))
+    currentDate += interval;
+  }
+  return schedule;
 }
 
 // prototype methods

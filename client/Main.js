@@ -6,7 +6,7 @@ class Main extends React.Component {
     constructor(){
         super()
         this.state = {
-            selectedDate: {},
+            schedule: {},
             plants: []
         }
     }
