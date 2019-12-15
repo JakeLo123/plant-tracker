@@ -23,7 +23,7 @@ const dayOfWeekMap = {
       11: 'December'
   }
 
-  function parseDate(date) {
+  function stringifyDate(date) {
     const day = date.getDate();
     const month = monthMap[date.getMonth()];
     const year = date.getFullYear();
@@ -43,13 +43,12 @@ const dayOfWeekMap = {
 
   function makeScheduleFromPlants(plants){
       return plants.reduce((accum, plant) => {
-        console.log('accum', accum, 'plant', plant)
         plant.schedule.forEach(day => {
-            if(!accum[day]) accum[day] = [plant.name];
-            else accum[day].push(plant.name);
+            if(!accum[day]) accum[day] = [plant];
+            else accum[day].push(plant);
         })
         return accum;
       }, {})
   }
 
-module.exports = { parseDate, getDateValueFromDays, makeScheduleFromPlants}
+module.exports = { stringifyDate, getDateValueFromDays, makeScheduleFromPlants}

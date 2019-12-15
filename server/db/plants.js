@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 const db = require('./database');
-const { getDateValueFromDays, parseDate } = require('../../utils')
+const { stringifyDate } = require('../../utils')
 
 const Plant = db.define('plant', {
   name: {
@@ -20,13 +20,13 @@ const Plant = db.define('plant', {
 // instance methods
 Plant.prototype.getSchedule = function(){
   const finalWateringDate = new Date('March 17, 2020');
-  const oneDay = 86400000;
-  const interval = this.waterAfter * oneDay;
+  const oneDayMS = 86400000;
+  const interval = this.waterAfter * oneDayMS;
   let schedule = [];
   let currentDate = Date.parse('December 16, 2019')
   while(currentDate < finalWateringDate){
     const d = new Date(currentDate)
-    schedule.push(parseDate(d))
+    schedule.push(stringifyDate(d))
     currentDate += interval;
   }
   return schedule;

@@ -10,7 +10,7 @@ router.get('/', async (req, res, next) => {
         res.json(plants);
     } catch (e) {
         console.log('error getting all plants')
-        res.next(e)
+        next(e)
     }
 })
 

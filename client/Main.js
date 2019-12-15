@@ -8,28 +8,34 @@ class Main extends React.Component {
         super()
         this.state = {
             schedule: {},
-            plants: []
+            selectedDate: 'December 16, 2019'
         }
     }
 
     componentDidMount(){
         axios.get('/api/plants')
             .then(res => {
-                let d = res.data;
+                let plants = res.data;
                 this.setState({
-                    plants: d,
-                    schedule: makeScheduleFromPlants(d)
+                    schedule: makeScheduleFromPlants(plants)
                 })
             })
             .catch(e => {
                 console.log('error fetching plants...', e)
             })
     }
+    
     render(){
+        const {schedule, plants, selectedDate} = this.state
         return (
             <div>
-                <Header />
-                <Today schedule={this.state.schedule} plants={this.state.plants}/>
+                <header>
+                    <h1>we grow in tandem</h1>
+                    <div className="pagination" >tomorrow</div>
+                    <div className="pagination" >this week</div>
+                    <div className="pagination" >next week</div>
+                </header>
+                <Today schedule={schedule} plants={plants} selectedDate={selectedDate} />
             </div>
         )
     }

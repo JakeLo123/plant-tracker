@@ -1,18 +1,18 @@
 import React, { useState } from 'react'
-import {parseDate} from '../../utils'
+import { stringifyDate } from '../../utils'
 
 const Today = (props) => {
-    const [date, setDate] = useState(new Date('December 16, 2019'))
-    const parsedDate = parseDate(date);
-    const plants = props.plants
+    const {plants, selectedDate, schedule} = props;
+    console.log('sched for ' + selectedDate, schedule[selectedDate])
     return (
         <div>
             {
-                plants && plants.map(plant => {
-                    if(plant.schedule.includes(parsedDate)){
+                schedule[selectedDate] && schedule[selectedDate].length 
+                    ? (schedule[selectedDate].map(plant => {
                         return <div key={plant.id}>{plant.name}</div>
-                    }
-                })
+                    })) : (
+                        <div>no plants need watering today...</div>
+                    )
             }
         </div>
     )
