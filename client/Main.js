@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Header, Today} from './components';
+import {makeScheduleFromPlants} from '../utils';
 import axios from 'axios';
 
 class Main extends React.Component {
@@ -13,21 +14,22 @@ class Main extends React.Component {
 
     componentDidMount(){
         axios.get('/api/plants')
-                    .then(res => {
-                        let d = res.data;
-                        this.setState({
-                            plants: d
-                        })
-                    })
-                    .catch(e => {
-                        console.log('error fetching plants...', e)
-                    })
+            .then(res => {
+                let d = res.data;
+                this.setState({
+                    plants: d,
+                    schedule: makeScheduleFromPlants(d)
+                })
+            })
+            .catch(e => {
+                console.log('error fetching plants...', e)
+            })
     }
     render(){
         return (
             <div>
                 <Header />
-                <Today plants={this.state.plants}/>
+                <Today schedule={this.state.schedule} plants={this.state.plants}/>
             </div>
         )
     }

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import {parseDate} from '../../utils'
 
 const Today = (props) => {
-    const [date, setDate] = useState(new Date('December 19, 2019'))
+    const [date, setDate] = useState(new Date('December 16, 2019'))
     const parsedDate = parseDate(date);
     const plants = props.plants
     return (

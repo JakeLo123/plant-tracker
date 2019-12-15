@@ -41,4 +41,15 @@ const dayOfWeekMap = {
     return Math.round(d / days);
   }
 
-module.exports = { parseDate, getDateValueFromDays}
+  function makeScheduleFromPlants(plants){
+      return plants.reduce((accum, plant) => {
+        console.log('accum', accum, 'plant', plant)
+        plant.schedule.forEach(day => {
+            if(!accum[day]) accum[day] = [plant.name];
+            else accum[day].push(plant.name);
+        })
+        return accum;
+      }, {})
+  }
+
+module.exports = { parseDate, getDateValueFromDays, makeScheduleFromPlants}

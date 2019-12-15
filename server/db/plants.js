@@ -20,9 +20,9 @@ const Plant = db.define('plant', {
 // instance methods
 Plant.prototype.getSchedule = function(){
   const finalWateringDate = new Date('March 17, 2020');
-  const oneDay = 86400000
+  const oneDay = 86400000;
   const interval = this.waterAfter * oneDay;
-  let schedule = []
+  let schedule = [];
   let currentDate = Date.parse('December 16, 2019')
   while(currentDate < finalWateringDate){
     const d = new Date(currentDate)
@@ -35,7 +35,6 @@ Plant.prototype.getSchedule = function(){
 // prototype methods
 Plant.findAllToWaterOnDate = async function(date){
   const d = new Date(date);
-  console.log('date... ', d)
   let plants = await Plant.findAll();
   let output = plants.filter(plant => !plant.needsWaterOnDate(d))
   return output
