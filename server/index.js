@@ -7,8 +7,8 @@ const path = require('path')
 function createApp() {
   app.use(morgan('dev'));
   app.use(express.static(path.join(__dirname, '..', 'public')));
-  //   app.use(express.json());
-  //   app.use(express.urlencoded({ extended: true }));
+    app.use(express.json());
+    app.use(express.urlencoded({ extended: true }));
 
   app.use('/api', require('./api'))
 

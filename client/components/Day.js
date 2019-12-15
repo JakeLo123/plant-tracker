@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { stringifyDate, getNextDay } from '../../utils'
 
 const Day = (props) => {
-    let {plants, selectedDate, schedule} = props;
+    let {togglePlantWaterStatus, selectedDate, schedule} = props;
     const todaysDate = stringifyDate(new Date())
     return (
         <div id="day-component">
@@ -16,9 +16,19 @@ const Day = (props) => {
             {
                 schedule[selectedDate] && schedule[selectedDate].length 
                     ? (schedule[selectedDate].map(plant => {
-                        return <div key={plant.id}>{plant.name}</div>
+                        const water = plant.receivedWaterOnDates.includes(selectedDate) ? 'needs-no-water' : 'needs-water'
+                        return (
+                            <div
+                                key={plant.id}
+                                className={`plant ${water}`}
+                                onClick={() => togglePlantWaterStatus(plant.id, selectedDate)}
+                            >
+                                {plant.name}
+                            </div>
+
+                        )
                     })) : (
-                        <div>no plants need watering today...</div>
+                        <div>no plants need watering...</div>
                     )
             }
         </div>
