@@ -2,6 +2,20 @@
     font-family: 'Nunito', sans-serif;
 }
 
+body {
+    animation: slide-in-from-right 0.45s;
+    animation-play-state: running;
+}
+
+@keyframes slide-in-from-right {
+    from {
+        transform: translateX(700px)
+    }
+    to {
+        transform: translateX(0px)
+    }
+}
+
 /*
 #2BC016
 #26A96C
@@ -44,6 +58,17 @@ header > * {
     text-align: center;
 }
 
+#day-component {
+    padding: 10px 50px;
+}
+
+#day-component > h3 {
+    border: 1px solid black;
+    width: fit-content;
+    padding: 4px 10px;
+    border-radius: 5px;
+}
+
 .pagination:hover {
     transform: scale(1.2, 1.2);
     transition: 0.1s;
@@ -55,4 +80,9 @@ header > * {
 
 .plant.needs-no-water {
     text-decoration: line-through;
+}
+
+.plant:hover {
+    transform: translateX(7px);
+    transition: 0.1s;
 }

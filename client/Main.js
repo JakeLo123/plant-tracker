@@ -1,5 +1,5 @@
 import React from 'react';
-import {Day} from './components';
+import {Day, Week} from './components';
 import { makeScheduleFromPlants, getNextDay, stringifyDate } from '../utils';
 import axios from 'axios';
 
@@ -9,11 +9,13 @@ class Main extends React.Component {
         this.state = {
             plants: [],
             schedule: {},
-            selectedDate: stringifyDate(new Date())
+            selectedDate: stringifyDate(new Date()),
+            visabilityFilter: 'day'
         }
         this.nextDay = this.nextDay.bind(this);
         this.backToToday = this.backToToday.bind(this);
         this.togglePlantWaterStatus = this. togglePlantWaterStatus.bind(this);
+        this.backToThisWeek = this.backToThisWeek.bind(this);
     }
 
     componentDidMount(){
@@ -32,6 +34,7 @@ class Main extends React.Component {
 
     backToToday(){
         this.setState({
+            visabilityFilter: 'day',
             selectedDate: stringifyDate(new Date())
         })
     }
@@ -39,7 +42,14 @@ class Main extends React.Component {
     nextDay(){
         const selectedDate = this.state.selectedDate;
         this.setState({
+            visabilityFilter: 'day',
             selectedDate: getNextDay(selectedDate)
+        })
+    }
+
+    backToThisWeek(){
+        this.setState({
+            visabilityFilter: 'week'
         })
     }
     
@@ -60,17 +70,22 @@ class Main extends React.Component {
     }
 
     render(){
-        const {schedule, selectedDate} = this.state
+        const {schedule, selectedDate, visabilityFilter} = this.state
+        console.log(this.state.plants)
         return (
             <div>
                 <header>
                     <h1>we grow in tandem</h1>
                     <div onClick={this.backToToday} className="pagination" >today</div>
                     <div onClick={this.nextDay} className="pagination" >next day</div>
-                    <div className="pagination" >this week</div>
+                    <div onClick={this.backToThisWeek} className="pagination" >this week</div>
                     <div className="pagination" >next week</div>
                 </header>
-                <Day togglePlantWaterStatus={this.togglePlantWaterStatus} schedule={schedule} selectedDate={selectedDate} />
+                {
+                    visabilityFilter === 'day'
+                    ? (<Day togglePlantWaterStatus={this.togglePlantWaterStatus} schedule={schedule} selectedDate={selectedDate} />)
+                    : (<Week />)
+                }
             </div>
         )
     }
