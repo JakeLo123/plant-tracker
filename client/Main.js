@@ -22,7 +22,6 @@ class Main extends React.Component {
     componentDidMount(){
         axios.get('/api/plants')
             .then(res => {
-                console.log('eeehhh')
                 let plants = res.data;
                 this.setState({
                     plants: plants,

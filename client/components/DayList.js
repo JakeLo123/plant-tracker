@@ -1,21 +1,10 @@
-import React, { useState } from 'react'
-import { stringifyDate, getNextDay } from '../../utils'
-import DayList from './DayList';
+import React from 'react';
 
-const Day = (props) => {
-    let {togglePlantWaterStatus, selectedDate, schedule} = props;
-    const todaysDate = stringifyDate(new Date())
+const DayList = (props) => {
+    const { togglePlantWaterStatus, selectedDate, schedule } = props;
     return (
-        <div id="day-component">
-            <h3>
-                {
-                    selectedDate === todaysDate
-                    ? 'Today'
-                    : selectedDate
-                }
-            </h3>
-            <DayList togglePlantWaterStatus={togglePlantWaterStatus} selectedDate={selectedDate} schedule={schedule} />
-            {/* {
+        <div id="day-list-container">
+            {
                 schedule[selectedDate] && schedule[selectedDate].length 
                     ? (schedule[selectedDate].map(plant => {
                         const water = plant.receivedWaterOnDates.includes(selectedDate) ? 'needs-no-water' : 'needs-water'
@@ -32,9 +21,9 @@ const Day = (props) => {
                     })) : (
                         <div>no plants need watering...</div>
                     )
-            } */}
+                }
         </div>
     )
 }
 
-export default Day;
+export default DayList
