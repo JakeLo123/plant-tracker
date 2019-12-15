@@ -12,23 +12,38 @@ const Plant = db.define('plant', {
   },
   lastWateringDate: {
     type: Sequelize.DATEONLY,
-    defaultValue: new Date('December 14, 2019')
+    defaultValue: new Date('2019-12-15')
   }
 });
 
 // instance methods
-Plant.prototype.getNextWateringDate = function(){
-  // I don't think this is what I want, so remember ot change it
-  return new Date() - new Date(this.lastWateringDate);
+Plant.prototype.getTimeSinceLastWater = function(){
+  let timeSinceLastWater = new Date(this.lastWateringDate);
+  return new Date() - timeSinceLastWater;
+}
+
+Plant.prototype.needsWater = function(){
+  let oneDay = 86400000;
+  let timeSinceLastWater = this.getTimeSinceLastWater();
+  let timeUntilNeedsWater = this.waterAfter * oneDay;
+  return timeSinceLastWater > timeUntilNeedsWater;
+}
+
+Plant.prototype.needsWaterOnDate = function(date){
+  let oneDay = 86400000;
+  let timeUntilNeedsWater = this.waterAfter * oneDay;
+  let lastWateringDate = new Date(this.lastWateringDate);
+  let needsWaterOnDate = date - lastWateringDate
+  return timeUntilNeedsWater > needsWaterOnDate;
 }
 
 // prototype methods
-Plant.findAllToWaterToday = async function(){
-  const output = await Plant.findAll({
-    where: {
-
-    }
-  })
+Plant.findAllToWaterOnDate = async function(date){
+  const d = new Date(date);
+  console.log('date... ', d)
+  let plants = await Plant.findAll();
+  let output = plants.filter(plant => !plant.needsWaterOnDate(d))
+  return output
 }
 
 module.exports = Plant;

@@ -7,6 +7,7 @@ const dayOfWeekMap = {
     6: 'Saturday',
     7: 'Sunday',
   };
+  
   function parseDate(dateObj) {
     const dayOfWeek = dayOfWeekMap[dateObj.getDay()];
     const day = dateObj.getDate();

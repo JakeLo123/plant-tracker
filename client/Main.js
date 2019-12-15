@@ -2,34 +2,35 @@ import React, {useEffect, useState} from 'react';
 import {Header, Today} from './components';
 import axios from 'axios';
 
-function Main () {
-    const [plants, setPlants] = useState([])
-
-    useEffect(() => {
-        const fetchPlants = () => {
-            axios.get('/api/plants')
-                .then(res => {
-                    let d = res.data;
-                    setPlants(d)
-                    console.log('data...', plants)
-                })
-                .catch(e => {
-                    console.log('error fetching plants...', e)
-                })
+class Main extends React.Component {
+    constructor(){
+        super()
+        this.state = {
+            selectedDate: {},
+            plants: []
         }
-        fetchPlants();
-    }, [])
-    return (
-        <div>
-            <Header />
-            {/* {
-                plants.map(plant => (
-                    <div key={plant.id} >{plant.name}</div>
-                ))
-            } */}
-            <Today plants={plants}/>
-        </div>
-    )
+    }
+
+    componentDidMount(){
+        axios.get('/api/plants')
+                    .then(res => {
+                        let d = res.data;
+                        this.setState({
+                            plants: d
+                        })
+                    })
+                    .catch(e => {
+                        console.log('error fetching plants...', e)
+                    })
+    }
+    render(){
+        return (
+            <div>
+                <Header />
+                <Today plants={this.state.plants}/>
+            </div>
+        )
+    }
 }
 
 export default Main;
