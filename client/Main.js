@@ -1,6 +1,6 @@
 import React from 'react';
 import {Day, Week} from './components';
-import { makeScheduleFromPlants, getNextDay, stringifyDate } from '../utils';
+import { makeScheduleFromPlants, getNextDay, stringifyDate, getWeekFromDay } from '../utils';
 import axios from 'axios';
 
 class Main extends React.Component {
@@ -10,6 +10,7 @@ class Main extends React.Component {
             plants: [],
             schedule: {},
             selectedDate: stringifyDate(new Date()),
+            selectedWeek: getWeekFromDay('Monday December 16, 2019'),
             visabilityFilter: 'day'
         }
         this.nextDay = this.nextDay.bind(this);
@@ -21,6 +22,7 @@ class Main extends React.Component {
     componentDidMount(){
         axios.get('/api/plants')
             .then(res => {
+                console.log('eeehhh')
                 let plants = res.data;
                 this.setState({
                     plants: plants,
@@ -70,8 +72,7 @@ class Main extends React.Component {
     }
 
     render(){
-        const {schedule, selectedDate, visabilityFilter} = this.state
-        console.log(this.state.plants)
+        const {schedule, selectedDate, selectedWeek, visabilityFilter} = this.state
         return (
             <div>
                 <header>
@@ -84,7 +85,7 @@ class Main extends React.Component {
                 {
                     visabilityFilter === 'day'
                     ? (<Day togglePlantWaterStatus={this.togglePlantWaterStatus} schedule={schedule} selectedDate={selectedDate} />)
-                    : (<Week />)
+                    : (<Week togglePlantWaterStatus={this.togglePlantWaterStatus} schedule={schedule} selectedWeek={selectedWeek} />)
                 }
             </div>
         )

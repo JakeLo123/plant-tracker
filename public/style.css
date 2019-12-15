@@ -60,6 +60,7 @@ header > * {
 
 #day-component {
     padding: 10px 50px;
+    width: fit-content;
 }
 
 #day-component > h3 {

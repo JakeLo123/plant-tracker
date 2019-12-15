@@ -37,7 +37,6 @@ function getDateValueFromDays(date){
   const minutes = 1000 * 60;
   const hours = minutes * 60;
   const days = hours * 24;
-  // const years = days * 365;
 
   return Math.round(d / days);
 }
@@ -54,9 +53,32 @@ function makeScheduleFromPlants(plants){
 
 function getNextDay(dateString){
   const d = Date.parse(dateString);
-  const oneDayMilliseconds = 86400000;
-  const nextDay = new Date(d + oneDayMilliseconds);
+  const lengthOfOneDayMilliseconds = 86400000;
+  const nextDay = new Date(d + lengthOfOneDayMilliseconds);
   return stringifyDate(nextDay);
+}
+
+function getWeekFromDay(dateString){
+  const lengthOfOneDayMilliseconds = 86400000;
+  const week = [];
+  let curDateObj = new Date(dateString)
+  let day = curDateObj.getDay()
+  if(day === 0){
+    curDateObj = new Date(Date.parse(curDateObj) + lengthOfOneDayMilliseconds)
+    day = new Date(curDateObj).getDay();
+  } else if (day > 1){
+    while(day > 1){
+      curDateObj = new Date(Date.parse(curDateObj) - lengthOfOneDayMilliseconds)
+      day = new Date(curDateObj).getDay();
+    }
+  }
+  while(day < 6){
+    let dateStringToAdd = stringifyDate(curDateObj)
+    week.push(dateStringToAdd);
+    curDateObj = new Date(Date.parse(curDateObj) + lengthOfOneDayMilliseconds)
+    day = new Date(curDateObj).getDay();
+  }
+  return week;
 }
 
 function toggleDateFromArray(dateToToggle, arrayOfDates) {
@@ -69,4 +91,4 @@ function toggleDateFromArray(dateToToggle, arrayOfDates) {
   return arrayOfDates;
 }
 
-module.exports = { stringifyDate, getDateValueFromDays, makeScheduleFromPlants, getNextDay, toggleDateFromArray}
+module.exports = { stringifyDate, getDateValueFromDays, makeScheduleFromPlants, getNextDay, getWeekFromDay, toggleDateFromArray}
