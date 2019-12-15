@@ -8,12 +8,26 @@ const dayOfWeekMap = {
     7: 'Sunday',
   };
 
-  function parseDate(dateObj) {
-    const dayOfWeek = dayOfWeekMap[dateObj.getDay()];
-    const day = dateObj.getDate();
-    const month = dateObj.getMonth();
-    const year = dateObj.getFullYear();
-    const output = `${dayOfWeek} ${day}-${month}-${year}`;
+  const monthMap = {
+      0: 'January',
+      1: 'February',
+      2: 'March',
+      3: 'April',
+      4: 'May',
+      5: 'June',
+      6: 'July',
+      7: 'August',
+      8: 'September',
+      9: 'October',
+      10: 'November',
+      11: 'December'
+  }
+
+  function parseDate(date) {
+    const day = date.getDate();
+    const month = monthMap[date.getMonth()];
+    const year = date.getFullYear();
+    const output = `${month} ${day}, ${year}`;
     return output;
   }
 
