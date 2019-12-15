@@ -29,7 +29,6 @@ Plant.prototype.getSchedule = function(){
     schedule.push(stringifyDate(d))
     currentDate += interval;
   }
-  console.log(schedule)
   return schedule;
 }
 

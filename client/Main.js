@@ -1,15 +1,14 @@
 import React from 'react';
 import {Day} from './components';
-import { makeScheduleFromPlants, getNextDay } from '../utils';
+import { makeScheduleFromPlants, getNextDay, stringifyDate } from '../utils';
 import axios from 'axios';
-import Calendar from 'react-calendar';
 
 class Main extends React.Component {
     constructor(){
         super()
         this.state = {
             schedule: {},
-            selectedDate: 'Monday December 16, 2019'
+            selectedDate: stringifyDate(new Date())
         }
         this.changeDay = this.changeDay.bind(this);
     }
@@ -45,7 +44,6 @@ class Main extends React.Component {
                     <div className="pagination" >next week</div>
                 </header>
                 <Day schedule={schedule} plants={plants} selectedDate={selectedDate} />
-                <Calendar />
             </div>
         )
     }
