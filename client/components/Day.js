@@ -6,13 +6,13 @@ const Day = (props) => {
     const todaysDate = stringifyDate(new Date())
     return (
         <div id="day-component">
-            <h1>
+            <h3>
                 {
                     selectedDate === todaysDate
                     ? 'Today'
                     : selectedDate
                 }
-            </h1>
+            </h3>
             {
                 schedule[selectedDate] && schedule[selectedDate].length 
                     ? (schedule[selectedDate].map(plant => {

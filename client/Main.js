@@ -2,6 +2,7 @@ import React from 'react';
 import {Day} from './components';
 import { makeScheduleFromPlants, getNextDay } from '../utils';
 import axios from 'axios';
+import Calendar from 'react-calendar';
 
 class Main extends React.Component {
     constructor(){
@@ -44,6 +45,7 @@ class Main extends React.Component {
                     <div className="pagination" >next week</div>
                 </header>
                 <Day schedule={schedule} plants={plants} selectedDate={selectedDate} />
+                <Calendar />
             </div>
         )
     }
