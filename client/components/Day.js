@@ -1,10 +1,18 @@
 import React, { useState } from 'react'
-// import { stringifyDate, getNextDay } from '../../utils'
+import { stringifyDate, getNextDay } from '../../utils'
 
-const Today = (props) => {
-    const {plants, selectedDate, schedule} = props;
+const Day = (props) => {
+    let {plants, selectedDate, schedule} = props;
+    const todaysDate = stringifyDate(new Date())
     return (
-        <div>
+        <div id="day-component">
+            <h1>
+                {
+                    selectedDate === todaysDate
+                    ? 'Today'
+                    : selectedDate
+                }
+            </h1>
             {
                 schedule[selectedDate] && schedule[selectedDate].length 
                     ? (schedule[selectedDate].map(plant => {
@@ -17,4 +25,4 @@ const Today = (props) => {
     )
 }
 
-export default Today;
+export default Day;

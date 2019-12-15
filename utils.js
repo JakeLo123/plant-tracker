@@ -1,11 +1,11 @@
 const dayOfWeekMap = {
+    0: 'Sunday',
     1: 'Monday',
     2: 'Tuesday',
     3: 'Wednesday',
     4: 'Thursday',
     5: 'Friday',
     6: 'Saturday',
-    7: 'Sunday',
   };
 
   const monthMap = {
@@ -24,10 +24,11 @@ const dayOfWeekMap = {
   }
 
   function stringifyDate(date) {
+    const dayOfWeek = dayOfWeekMap[date.getDay()]
     const day = date.getDate();
     const month = monthMap[date.getMonth()];
     const year = date.getFullYear();
-    const output = `${month} ${day}, ${year}`;
+    const output = `${dayOfWeek} ${month} ${day}, ${year}`;
     return output;
   }
 

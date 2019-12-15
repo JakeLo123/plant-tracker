@@ -11,9 +11,9 @@ const Plant = db.define('plant', {
     type: Sequelize.INTEGER,
     allowNull: false,
   },
-  lastWateringDate: {
-    type: Sequelize.DATEONLY,
-    defaultValue: new Date('December 16, 2019')
+  receivedWaterOnDates: {
+    type: Sequelize.ARRAY(Sequelize.TEXT),
+    defaultValue: []
   }
 });
 
@@ -29,6 +29,7 @@ Plant.prototype.getSchedule = function(){
     schedule.push(stringifyDate(d))
     currentDate += interval;
   }
+  console.log(schedule)
   return schedule;
 }
 

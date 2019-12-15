@@ -1,4 +1,3 @@
-import Header from './Header'
-import Today from './Today'
+import Day from './Day'
 
-export {Header, Today};
+export {Day};
