@@ -1,5 +1,11 @@
 import React from 'react';
 
 export default function Main () {
-    return <h1>it's working, baby ;)</h1>
+    return (
+        <header>
+            <h1>
+                we grow in tandem
+            </h1>
+        </header>
+    )
 }
