@@ -20,8 +20,8 @@ const Plant = db.define('plant', {
 // instance methods
 Plant.prototype.getSchedule = function(){
   const finalWateringDate = new Date('March 17, 2020');
-  const oneDayMS = 86400000;
-  const interval = this.waterAfter * oneDayMS;
+  const oneDayMilliseconds = 86400000;
+  const interval = this.waterAfter * oneDayMilliseconds;
   let schedule = [];
   let currentDate = Date.parse('December 16, 2019')
   while(currentDate < finalWateringDate){

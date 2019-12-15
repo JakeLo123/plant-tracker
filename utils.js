@@ -51,4 +51,11 @@ const dayOfWeekMap = {
       }, {})
   }
 
-module.exports = { stringifyDate, getDateValueFromDays, makeScheduleFromPlants}
+  function getNextDay(dateString){
+    const d = Date.parse(dateString);
+    const oneDayMilliseconds = 86400000;
+    const nextDay = new Date(d + oneDayMilliseconds);
+    return stringifyDate(nextDay);
+  }
+
+module.exports = { stringifyDate, getDateValueFromDays, makeScheduleFromPlants, getNextDay}

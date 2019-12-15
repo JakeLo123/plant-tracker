@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Header, Today} from './components';
-import {makeScheduleFromPlants} from '../utils';
+import { makeScheduleFromPlants, getNextDay } from '../utils';
 import axios from 'axios';
 
 class Main extends React.Component {
@@ -10,6 +10,7 @@ class Main extends React.Component {
             schedule: {},
             selectedDate: 'December 16, 2019'
         }
+        this.changeDay = this.changeDay.bind(this);
     }
 
     componentDidMount(){
@@ -24,6 +25,13 @@ class Main extends React.Component {
                 console.log('error fetching plants...', e)
             })
     }
+
+    changeDay(){
+        const selectedDate = this.state.selectedDate;
+        this.setState({
+            selectedDate: getNextDay(selectedDate)
+        })
+    }
     
     render(){
         const {schedule, plants, selectedDate} = this.state
@@ -31,7 +39,7 @@ class Main extends React.Component {
             <div>
                 <header>
                     <h1>we grow in tandem</h1>
-                    <div className="pagination" >tomorrow</div>
+                    <div onClick={this.changeDay} className="pagination" >tomorrow</div>
                     <div className="pagination" >this week</div>
                     <div className="pagination" >next week</div>
                 </header>

@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
-import { stringifyDate } from '../../utils'
+// import { stringifyDate, getNextDay } from '../../utils'
 
 const Today = (props) => {
     const {plants, selectedDate, schedule} = props;
-    console.log('sched for ' + selectedDate, schedule[selectedDate])
     return (
         <div>
             {
