@@ -1,6 +1,11 @@
 import React from 'react';
 import {Day, Week} from './components';
-import { makeScheduleFromPlants, getNextDay, stringifyDate, getWeekFromDay } from '../utils';
+import { makeScheduleFromPlants,
+    getNextDay,
+    stringifyDate,
+    getWeekFromDay,
+    createDateOptions
+} from '../utils';
 import axios from 'axios';
 
 class Main extends React.Component {
@@ -15,6 +20,7 @@ class Main extends React.Component {
         }
         this.nextDay = this.nextDay.bind(this);
         this.backToToday = this.backToToday.bind(this);
+        this.selectDay = this.selectDay.bind(this);
         this.togglePlantWaterStatus = this. togglePlantWaterStatus.bind(this);
         this.backToThisWeek = this.backToThisWeek.bind(this);
     }
@@ -48,6 +54,14 @@ class Main extends React.Component {
         })
     }
 
+    selectDay(event){
+        const selectedDate = event.target.value;
+        this.setState({
+            visabilityFilter: 'day',
+            selectedDate: selectedDate
+        })
+    }
+
     backToThisWeek(){
         this.setState({
             visabilityFilter: 'week'
@@ -72,6 +86,7 @@ class Main extends React.Component {
 
     render(){
         const {schedule, selectedDate, selectedWeek, visabilityFilter} = this.state
+        console.log(schedule)
         return (
             <div>
                 <header>
@@ -79,11 +94,17 @@ class Main extends React.Component {
                     <div onClick={this.backToToday} className="pagination" >today</div>
                     <div onClick={this.nextDay} className="pagination" >next day</div>
                     <div onClick={this.backToThisWeek} className="pagination" >this week</div>
-                    <div className="pagination" >next week</div>
+                    {/* <select onChange={this.selectDay} className="pagination" >
+                        {
+                            createDateOptions().map(date => {
+                                return <option key={date}>{date}</option>
+                            })
+                        }
+                    </select> */}
                 </header>
                 {
                     visabilityFilter === 'day'
-                    ? (<Day togglePlantWaterStatus={this.togglePlantWaterStatus} schedule={schedule} selectedDate={selectedDate} />)
+                    ? (<Day selectDay={this.selectDay} togglePlantWaterStatus={this.togglePlantWaterStatus} schedule={schedule} selectedDate={selectedDate} />)
                     : (<Week togglePlantWaterStatus={this.togglePlantWaterStatus} schedule={schedule} selectedWeek={selectedWeek} />)
                 }
             </div>

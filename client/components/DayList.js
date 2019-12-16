@@ -19,7 +19,7 @@ const DayList = (props) => {
 
                         )
                     })) : (
-                        <div>no plants need watering...</div>
+                        <div id="no-plants">no plants need watering...</div>
                     )
                 }
         </div>

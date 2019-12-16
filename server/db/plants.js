@@ -23,7 +23,7 @@ Plant.prototype.getSchedule = function(){
   const oneDayMilliseconds = 86400000;
   const interval = this.waterAfter * oneDayMilliseconds;
   let schedule = [];
-  let currentDate = Date.parse('December 16, 2019')
+  let currentDate = Date.parse('Monday December 16, 2019')
   while(currentDate < finalWateringDate){
     const d = new Date(currentDate)
     schedule.push(stringifyDate(d))

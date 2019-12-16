@@ -91,4 +91,13 @@ function toggleDateFromArray(dateToToggle, arrayOfDates) {
   return arrayOfDates;
 }
 
-module.exports = { stringifyDate, getDateValueFromDays, makeScheduleFromPlants, getNextDay, getWeekFromDay, toggleDateFromArray}
+function createDateOptions(){
+  let output = ['Monday December 16, 2019'];
+  for(let i = 0; i < 85; ++i){
+    let curDateString = output[i];
+    output.push(getNextDay(curDateString))
+  }
+  return output
+}
+
+module.exports = { stringifyDate, getDateValueFromDays, makeScheduleFromPlants, getNextDay, getWeekFromDay, toggleDateFromArray, createDateOptions }

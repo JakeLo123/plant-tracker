@@ -1,38 +1,21 @@
-import React, { useState } from 'react'
-import { stringifyDate, getNextDay } from '../../utils'
+import React from 'react'
+import { stringifyDate, createDateOptions } from '../../utils'
 import DayList from './DayList';
 
 const Day = (props) => {
-    let {togglePlantWaterStatus, selectedDate, schedule} = props;
+    let {togglePlantWaterStatus, selectedDate, selectDay, schedule} = props;
     const todaysDate = stringifyDate(new Date())
     return (
         <div id="day-component">
-            <h3>
-                {
-                    selectedDate === todaysDate
-                    ? 'Today'
-                    : selectedDate
-                }
-            </h3>
+            <select value={selectedDate} onChange={selectDay} className="pagination" >
+                <option>{ selectedDate === todaysDate ? 'Today' : selectedDate }</option>
+                        {
+                            createDateOptions().map(date => {
+                                return <option key={date}>{date}</option>
+                            })
+                        }
+            </select>
             <DayList togglePlantWaterStatus={togglePlantWaterStatus} selectedDate={selectedDate} schedule={schedule} />
-            {/* {
-                schedule[selectedDate] && schedule[selectedDate].length 
-                    ? (schedule[selectedDate].map(plant => {
-                        const water = plant.receivedWaterOnDates.includes(selectedDate) ? 'needs-no-water' : 'needs-water'
-                        return (
-                            <div
-                                key={plant.id}
-                                className={`plant ${water}`}
-                                onClick={() => togglePlantWaterStatus(plant.id, selectedDate)}
-                            >
-                                {plant.name}
-                            </div>
-
-                        )
-                    })) : (
-                        <div>no plants need watering...</div>
-                    )
-            } */}
         </div>
     )
 }

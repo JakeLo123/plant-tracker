@@ -1,5 +1,6 @@
 * {
     font-family: 'Nunito', sans-serif;
+    overflow: hidden;
 }
 
 body {
@@ -70,9 +71,25 @@ header > * {
     border-radius: 5px;
 }
 
+select {
+    font-size: 20px;
+    border: 1px solid black;
+    width: fit-content;
+    padding: 4px 10px;
+    border-radius: 5px;
+    background-color: lightgreen;
+    outline: none;
+}
+
 .pagination:hover {
     transform: scale(1.2, 1.2);
     transition: 0.1s;
+}
+
+.plant {
+    margin: 10px;
+    animation: plant-slide 0.2s;
+    animation-play-state: running;
 }
 
 .plant.needs-water {
@@ -83,7 +100,42 @@ header > * {
     text-decoration: line-through;
 }
 
+#no-plants {
+    animation: plant-slide 0.2s;
+    animation-play-state: running;
+}
+
 .plant:hover {
     transform: translateX(7px);
     transition: 0.1s;
+}
+
+.selected-week-container {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#week-of {
+    text-align: center;
+}
+
+.small-day-list > h4 {
+    border: 1px solid black;
+    width: fit-content;
+    padding: 4px 10px;
+    border-radius: 5px;
+}
+
+.small-day-list > #day-list-container > .plant, .small-day-list > #day-list-container > #no-plants {
+    font-size: 12px;
+    margin: 7px;
+}
+
+@keyframes plant-slide {
+    from {
+        transform: translateX(20px)
+    }
+    to {
+        transform: translateX(0px)
+    }
 }
