@@ -4,7 +4,6 @@ import { makeScheduleFromPlants,
     getNextDay,
     stringifyDate,
     getWeekFromDay,
-    createDateOptions
 } from '../utils';
 import axios from 'axios';
 
