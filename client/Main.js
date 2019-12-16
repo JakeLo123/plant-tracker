@@ -17,8 +17,8 @@ class Main extends React.Component {
             selectedWeek: getWeekFromDay('Monday December 16, 2019'),
             visabilityFilter: 'day'
         }
+        this.selectToday = this.selectToday.bind(this);
         this.nextDay = this.nextDay.bind(this);
-        this.backToToday = this.backToToday.bind(this);
         this.selectDay = this.selectDay.bind(this);
         this.togglePlantWaterStatus = this. togglePlantWaterStatus.bind(this);
         this.backToThisWeek = this.backToThisWeek.bind(this);
@@ -38,7 +38,7 @@ class Main extends React.Component {
             })
     }
 
-    backToToday(){
+    selectToday(){
         this.setState({
             visabilityFilter: 'day',
             selectedDate: stringifyDate(new Date())
@@ -85,21 +85,13 @@ class Main extends React.Component {
 
     render(){
         const {schedule, selectedDate, selectedWeek, visabilityFilter} = this.state
-        console.log(schedule)
         return (
             <div>
                 <header>
                     <h1>we grow in tandem</h1>
-                    <div onClick={this.backToToday} className="pagination" >today</div>
+                    <div onClick={this.selectToday} className="pagination" >today</div>
                     <div onClick={this.nextDay} className="pagination" >next day</div>
                     <div onClick={this.backToThisWeek} className="pagination" >this week</div>
-                    {/* <select onChange={this.selectDay} className="pagination" >
-                        {
-                            createDateOptions().map(date => {
-                                return <option key={date}>{date}</option>
-                            })
-                        }
-                    </select> */}
                 </header>
                 {
                     visabilityFilter === 'day'

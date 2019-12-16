@@ -1,11 +1,14 @@
 * {
     font-family: 'Nunito', sans-serif;
-    overflow: hidden;
 }
 
 body {
     animation: slide-in-from-right 0.45s;
     animation-play-state: running;
+    background-color: lightgreen;
+    height: 100%;
+    width: 100%;
+    margin: 0;
 }
 
 @keyframes slide-in-from-right {
@@ -27,36 +30,43 @@ body {
 
 #app {
     margin: 0;
-    padding: 0;
-}
-
-body {
-    background-color: lightgreen;
-    height: 100%;
-    margin: 0;
-    padding: 0;
+    padding: 0px;
+    width: 100%;
 }
 
 header {
-    width: 100%;
+    max-width: 100%;
     padding: 10px;
     background-color: #286428a8;
     box-shadow: 1px 1px 5px #286428a8;
     display: flex;
     flex-wrap: nowrap;
     align-items: flex-end;
-    justify-content: center;
+    justify-content: space-evenly;
 }
 
 header > * {
     height: 100%;
-    margin: 0 10px;
+    margin: 0px 10px;
 }
 
-.pagination {
+header > .pagination {
     flex: 3;
     margin: 5px;
+    padding: 5px 12px;
+    max-width: fit-content;
     text-align: center;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+header > .pagination:active {
+    transform: translateY(2px)
+}
+
+.pagination:hover {
+    transform: scale(1.2, 1.2);
+    transition: 0.1s;
 }
 
 #day-component {
@@ -79,11 +89,6 @@ select {
     border-radius: 5px;
     background-color: lightgreen;
     outline: none;
-}
-
-.pagination:hover {
-    transform: scale(1.2, 1.2);
-    transition: 0.1s;
 }
 
 .plant {

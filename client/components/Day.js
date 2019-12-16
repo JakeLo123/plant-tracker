@@ -15,7 +15,11 @@ const Day = (props) => {
                             })
                         }
             </select>
-            <DayList togglePlantWaterStatus={togglePlantWaterStatus} selectedDate={selectedDate} schedule={schedule} />
+            {
+                selectedDate.split(' ')[0] === 'Saturday' || selectedDate.split(' ')[0] === 'Sunday'
+                ? <h2>no watering on the weekends!</h2>
+                : <DayList togglePlantWaterStatus={togglePlantWaterStatus} selectedDate={selectedDate} schedule={schedule} />
+            }
         </div>
     )
 }
