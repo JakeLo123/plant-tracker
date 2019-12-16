@@ -23,6 +23,9 @@ describe('Plant class', () => {
             cucumber = await Plant.create(testPlant1);
             schedule = cucumber.getSchedule();
         })
+        it('always includes Monday December 16, 2019 as the first watering day', () => {
+            expect(cucumber.getSchedule()[0]).to.include('Monday December 16, 2019')
+        })
         it('does not include saturdays or sundays', () => {
             function isWeekday(str){
                 const days = [ 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday' ];

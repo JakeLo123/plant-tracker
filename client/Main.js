@@ -30,7 +30,7 @@ class Main extends React.Component {
                 })
             })
             .catch(e => {
-                console.log('error fetching plants...', e)
+                console.error('error fetching plants...', e)
             })
     }
 
@@ -83,7 +83,6 @@ class Main extends React.Component {
     }
 
     render(){
-        console.log(this.state.plants)
         const {schedule, selectedDate, selectedWeek, visabilityFilter} = this.state
         return (
             <div>

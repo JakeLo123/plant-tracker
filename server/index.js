@@ -3,6 +3,7 @@ const app = express();
 const morgan = require('morgan');
 const { db } = require('./db');
 const path = require('path');
+module.exports = app;
 
 function createApp() {
   app.use(morgan('dev'));
@@ -21,6 +22,12 @@ function createApp() {
 
 const port = 3030;
 
+function startListening(){
+  app.listen(port, () => {
+    console.log('listening on port ', port);
+  });
+}
+
 function startApp() {
   try {
     db.sync();
@@ -28,10 +35,12 @@ function startApp() {
   } catch (err) {
     console.error('error syncing database: ', err);
   }
-  app.listen(port, () => {
-    console.log('listening on port ', port);
-  });
+  startListening();
 }
 
-createApp();
-startApp();
+if(require.main === module){
+  createApp();
+  startApp();
+} else {
+  createApp()
+}
