@@ -1,6 +1,6 @@
 import React from 'react';
 
-const DayList = (props) => {
+const PlantList = (props) => {
     const { togglePlantWaterStatus, selectedDate, schedule } = props;
     return (
         <div id="day-list-container">
@@ -26,4 +26,4 @@ const DayList = (props) => {
     )
 }
 
-export default DayList
+export default PlantList

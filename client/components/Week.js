@@ -1,5 +1,5 @@
 import React from 'react';
-import DayList from './DayList';
+import PlantList from './PlantList';
 
 const Week = props => {
     const { togglePlantWaterStatus, schedule, selectedWeek } = props;
@@ -12,7 +12,7 @@ const Week = props => {
                     return (
                         <div className="small-day-list" key={day}>
                             <h4>{dayOfWeek}</h4>
-                            <DayList togglePlantWaterStatus={togglePlantWaterStatus} selectedDate={day} schedule={schedule} />
+                            <PlantList togglePlantWaterStatus={togglePlantWaterStatus} selectedDate={day} schedule={schedule} />
                         </div>
                     )
                 })}

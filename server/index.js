@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const morgan = require('morgan');
 const { db } = require('./db');
-const path = require('path')
+const path = require('path');
 
 function createApp() {
   app.use(morgan('dev'));

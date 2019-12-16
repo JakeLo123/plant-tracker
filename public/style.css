@@ -61,7 +61,7 @@ header > .pagination {
 }
 
 header > .pagination:active {
-    transform: translateY(2px)
+    transform: translateY(1px)
 }
 
 .pagination:hover {
@@ -142,5 +142,14 @@ select {
     }
     to {
         transform: translateX(0px)
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    header > h1 {
+        display: none;
+    }
+    .selected-week-container {
+        flex-wrap: wrap;
     }
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 import { stringifyDate, createDateOptions } from '../../utils'
-import DayList from './DayList';
+import PlantList from './PlantList';
 
 const Day = (props) => {
     let {togglePlantWaterStatus, selectedDate, selectDay, schedule} = props;
@@ -18,7 +18,7 @@ const Day = (props) => {
             {
                 selectedDate.split(' ')[0] === 'Saturday' || selectedDate.split(' ')[0] === 'Sunday'
                 ? <h2>no watering on the weekends!</h2>
-                : <DayList togglePlantWaterStatus={togglePlantWaterStatus} selectedDate={selectedDate} schedule={schedule} />
+                : <PlantList togglePlantWaterStatus={togglePlantWaterStatus} selectedDate={selectedDate} schedule={schedule} />
             }
         </div>
     )

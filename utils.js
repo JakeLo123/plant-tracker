@@ -23,22 +23,13 @@ const monthMap = {
     11: 'December'
 }
 
-function stringifyDate(date) {
-  const dayOfWeek = dayOfWeekMap[date.getDay()]
-  const day = date.getDate();
-  const month = monthMap[date.getMonth()];
-  const year = date.getFullYear();
+function stringifyDate(dateObject) {
+  const dayOfWeek = dayOfWeekMap[dateObject.getDay()]
+  const day = dateObject.getDate();
+  const month = monthMap[dateObject.getMonth()];
+  const year = dateObject.getFullYear();
   const output = `${dayOfWeek} ${month} ${day}, ${year}`;
   return output;
-}
-
-function getDateValueFromDays(date){
-  const d = Date.parse(date);
-  const minutes = 1000 * 60;
-  const hours = minutes * 60;
-  const days = hours * 24;
-
-  return Math.round(d / days);
 }
 
 function makeScheduleFromPlants(plants){
@@ -62,7 +53,7 @@ function getWeekFromDay(dateString){
   const lengthOfOneDayMilliseconds = 86400000;
   const week = [];
   let curDateObj = new Date(dateString)
-  let day = curDateObj.getDay()
+  let day = curDateObj.getDay();
   if(day === 0){
     curDateObj = new Date(Date.parse(curDateObj) + lengthOfOneDayMilliseconds)
     day = new Date(curDateObj).getDay();
@@ -97,7 +88,13 @@ function createDateOptions(){
     let curDateString = output[i];
     output.push(getNextDay(curDateString))
   }
-  return output
+  return output;
 }
 
-module.exports = { stringifyDate, getDateValueFromDays, makeScheduleFromPlants, getNextDay, getWeekFromDay, toggleDateFromArray, createDateOptions }
+module.exports = { stringifyDate,
+  makeScheduleFromPlants,
+  getNextDay,
+  getWeekFromDay,
+  toggleDateFromArray,
+  createDateOptions
+};

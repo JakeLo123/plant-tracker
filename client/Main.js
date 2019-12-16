@@ -1,10 +1,6 @@
 import React from 'react';
-import {Day, Week} from './components';
-import { makeScheduleFromPlants,
-    getNextDay,
-    stringifyDate,
-    getWeekFromDay,
-} from '../utils';
+import { Day, Week } from './components';
+import { makeScheduleFromPlants, getNextDay, stringifyDate, getWeekFromDay } from '../utils';
 import axios from 'axios';
 
 class Main extends React.Component {
@@ -14,7 +10,7 @@ class Main extends React.Component {
             plants: [],
             schedule: {},
             selectedDate: stringifyDate(new Date()),
-            selectedWeek: getWeekFromDay('Monday December 16, 2019'),
+            selectedWeek: getWeekFromDay(stringifyDate(new Date())),
             visabilityFilter: 'day'
         }
         this.selectToday = this.selectToday.bind(this);
@@ -54,7 +50,10 @@ class Main extends React.Component {
     }
 
     selectDay(event){
-        const selectedDate = event.target.value;
+        let selectedDate = event.target.value;
+        if (selectedDate === 'Today') {
+            selectedDate = stringifyDate(new Date())
+        }
         this.setState({
             visabilityFilter: 'day',
             selectedDate: selectedDate

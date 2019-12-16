@@ -1,4 +1,5 @@
-import Day from './Day'
-import Week from './Week'
+import Day from './Day';
+import Week from './Week';
+import PlantList from './PlantList';
 
-export {Day, Week};
+export { Day, Week, PlantList };
