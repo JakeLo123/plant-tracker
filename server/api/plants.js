@@ -10,19 +10,8 @@ router.get('/', async (req, res, next) => {
         })
         res.json(plants);
     } catch (e) {
-        console.log('error getting all plants')
+        console.log('error getting plants')
         next(e)
-    }
-})
-
-router.get('/:id', async (req, res, next) => {
-    try {
-        const plant = await Plant.findByPk(req.params.id)
-        plant.dataValues.schedule = plant.getSchedule();
-        res.json(plant)
-    } catch (e) {
-        console.log(`could not get plant with ${req.params.id}`)
-        next(e);
     }
 })
 

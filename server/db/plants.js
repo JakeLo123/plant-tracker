@@ -25,7 +25,15 @@ Plant.prototype.getSchedule = function(){
   let schedule = [];
   let currentDate = Date.parse('Monday December 16, 2019')
   while(currentDate < finalWateringDate){
-    const d = new Date(currentDate)
+    let d = new Date(currentDate)
+    if(d.getDay() === 0){
+      currentDate += oneDayMilliseconds;
+      d = new Date(currentDate);
+    }
+    else if (d.getDay() === 6){
+      currentDate -= oneDayMilliseconds;
+      d = new Date(currentDate);
+    }
     schedule.push(stringifyDate(d))
     currentDate += interval;
   }
@@ -33,11 +41,5 @@ Plant.prototype.getSchedule = function(){
 }
 
 // prototype methods
-Plant.findAllToWaterOnDate = async function(date){
-  const d = new Date(date);
-  let plants = await Plant.findAll();
-  let output = plants.filter(plant => !plant.needsWaterOnDate(d))
-  return output
-}
 
 module.exports = Plant;
