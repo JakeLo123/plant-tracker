@@ -7,7 +7,7 @@
     "seed": "node scripts/seed.js",
     "start": "node server",
     "dev": "webpack -w & nodemon server",
-    "test": "mocha -w || true"
+    "test": "NODE_ENV='test' mocha -w || true"
   },
   "author": "Jake Loew",
   "license": "ISC",
