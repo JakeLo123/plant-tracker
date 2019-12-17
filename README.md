@@ -5,8 +5,7 @@ The prompt was to create an app that generates a 12 week watering schedule for a
 
 ## getting started
 This program uses [Node.js](https://nodejs.org/en/) and [npm](https://www.npmjs.com/). 
-To get started, clone this repo, then `cd` into the main directory and run command `$ npm install` to install dependencies. Create a [PostgreSQL](https://postgresapp.com/) database called `tandemplants`, as well as one called `tandemplants.test` for automated testing. 
-Run command `npm run dev` to start the app, and visit `localhost:3030`.
+To get started, clone this repo, then `cd` into the main directory and run command `$ npm install` to install dependencies. Create a [PostgreSQL](https://postgresapp.com/) database called `tandemplants`, as well as one called `tandemplants.test` for automated testing. After creating the database, run `$ npm run seed`, to seed the database. Finally, run command `npm run dev` to start the app, and visit `localhost:3030`.
 
 ### usage
 Visit `localhost:3030` to see the watering schedule for any given day between December 16, 2019, and March 10, 2020. Once you water a plant, you can cross it out, so you know it's been watered.
