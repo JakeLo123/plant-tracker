@@ -12,7 +12,7 @@ describe('utility functions for parsing dates', () => {
             const date = new Date()
             assert.typeOf(stringifyDate(date), 'string');
         })
-        it('returns a string in the format of DAY MONTH DATE YEAR', () => {
+        it('returns a string in the correct format of DAY MONTH DATE YEAR', () => {
             const hanukka = new Date('12/22/2019')
             const christmas = new Date('12/25/2019')
             const newYears = new Date('1/1/2020')

@@ -23,6 +23,8 @@ const monthMap = {
     11: 'December'
 }
 
+const lengthOfOneDayMilliseconds = 86400000;
+
 function stringifyDate(dateObject) {
   const dayOfWeek = dayOfWeekMap[dateObject.getDay()]
   const day = dateObject.getDate();
@@ -44,13 +46,11 @@ function makeScheduleFromPlants(plants){
 
 function getNextDay(dateString){
   const d = Date.parse(dateString);
-  const lengthOfOneDayMilliseconds = 86400000;
   const nextDay = new Date(d + lengthOfOneDayMilliseconds);
   return stringifyDate(nextDay);
 }
 
 function getWeekFromDay(dateString){
-  const lengthOfOneDayMilliseconds = 86400000;
   const week = [];
   let curDateObj = new Date(dateString)
   let day = curDateObj.getDay();
