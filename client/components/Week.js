@@ -10,7 +10,7 @@ const Week = props => {
                 {selectedWeek && selectedWeek.map((day) => {
                     const dayOfWeek = day.split(' ')[0]
                     return (
-                        <div className="small-day-list" key={day}>
+                        <div className="small-plant-list" key={day}>
                             <h4>{dayOfWeek}</h4>
                             <PlantList togglePlantWaterStatus={togglePlantWaterStatus} selectedDate={day} schedule={schedule} />
                         </div>

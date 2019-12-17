@@ -124,14 +124,14 @@ select {
     text-align: center;
 }
 
-.small-day-list > h4 {
+.small-plant-list > h4 {
     border: 1px solid black;
     width: fit-content;
     padding: 4px 10px;
     border-radius: 5px;
 }
 
-.small-day-list > #day-list-container > .plant, .small-day-list > #day-list-container > #no-plants {
+.small-plant-list > #plant-list-container > .plant, .small-plant-list > #plant-list-container > #no-plants {
     font-size: 12px;
     margin: 7px;
 }

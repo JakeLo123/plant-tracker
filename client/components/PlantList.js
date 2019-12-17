@@ -3,7 +3,7 @@ import React from 'react';
 const PlantList = (props) => {
     const { togglePlantWaterStatus, selectedDate, schedule } = props;
     return (
-        <div id="day-list-container">
+        <div id="plant-list-container">
             {
                 schedule[selectedDate] && schedule[selectedDate].length 
                     ? (schedule[selectedDate].map(plant => {
