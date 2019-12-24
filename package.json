@@ -7,7 +7,7 @@
     "seed": "node scripts/seed.js",
     "start": "node server",
     "dev": "webpack -w & nodemon server",
-    "test": "NODE_ENV='test' mocha -w || true"
+    "test": "NODE_ENV='test' mocha -w '**/*.specs.js' || true"
   },
   "author": "Jake Loew",
   "license": "ISC",
@@ -27,6 +27,7 @@
     "sequelize": "^5.21.3"
   },
   "devDependencies": {
+    "@babel/register": "^7.7.7",
     "chai": "^4.2.0",
     "css-loader": "^3.3.2",
     "mocha": "^6.2.2",
