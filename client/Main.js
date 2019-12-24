@@ -20,7 +20,6 @@ export const selectNextDay = prevState => ({
 
 export const selectDay = dateString => {
   let selectedDate = dateString;
-  if (selectedDate === 'Today') selectedDate = stringifyDate(new Date());
   return {
     visabilityFilter: 'day',
     selectedDate: selectedDate,

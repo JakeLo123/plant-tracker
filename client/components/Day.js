@@ -4,11 +4,11 @@ import PlantList from './PlantList';
 
 const Day = props => {
   let { togglePlantWaterStatus, selectedDate, selectDay, schedule } = props;
-  const todaysDate = stringifyDate(new Date());
+  //   const todaysDate = stringifyDate(new Date());
   return (
     <div id="day-component">
       <select value={selectedDate} onChange={selectDay} className="pagination">
-        <option>{selectedDate === todaysDate ? 'Today' : selectedDate}</option>
+        {/* <option>{selectedDate === todaysDate ? 'Today' : selectedDate}</option> */}
         {createDateOptions().map(date => {
           return <option key={date}>{date}</option>;
         })}
