@@ -18,16 +18,18 @@ export const selectNextDay = prevState => ({
   selectedDate: getNextDay(prevState.selectedDate),
 });
 
-export const selectDay = event => {
-  let selectedDate = event.target.value;
-  if (selectedDate === 'Today') {
-    selectedDate = stringifyDate(new Date());
-  }
+export const selectDay = dateString => {
+  let selectedDate = dateString;
+  if (selectedDate === 'Today') selectedDate = stringifyDate(new Date());
   return {
     visabilityFilter: 'day',
     selectedDate: selectedDate,
   };
 };
+
+export const selectWeek = () => ({
+  visabilityFilter: 'week',
+});
 
 class Main extends React.Component {
   constructor() {
@@ -43,7 +45,7 @@ class Main extends React.Component {
     this.nextDay = this.nextDay.bind(this);
     this.selectDay = this.selectDay.bind(this);
     this.togglePlantWaterStatus = this.togglePlantWaterStatus.bind(this);
-    this.backToThisWeek = this.backToThisWeek.bind(this);
+    this.selectWeek = this.selectWeek.bind(this);
   }
 
   componentDidMount() {
@@ -70,13 +72,12 @@ class Main extends React.Component {
   }
 
   selectDay(event) {
-    this.setState(selectDay(event));
+    const dateString = event.target.value;
+    this.setState(selectDay(dateString));
   }
 
-  backToThisWeek() {
-    this.setState({
-      visabilityFilter: 'week',
-    });
+  selectWeek() {
+    this.setState(selectWeek);
   }
 
   togglePlantWaterStatus(plantId, dateToToggle) {
@@ -113,7 +114,7 @@ class Main extends React.Component {
           <div onClick={this.nextDay} className="pagination">
             next day
           </div>
-          <div onClick={this.backToThisWeek} className="pagination">
+          <div onClick={this.selectWeek} className="pagination">
             this week
           </div>
         </header>

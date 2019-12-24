@@ -6,7 +6,7 @@
   "scripts": {
     "seed": "node scripts/seed.js",
     "start": "node server",
-    "dev": "webpack -w & nodemon server",
+    "dev": "webpack -w & nodemon server || true",
     "test": "NODE_ENV='test' mocha -w '**/*.specs.js' || true"
   },
   "author": "Jake Loew",
