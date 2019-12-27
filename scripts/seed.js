@@ -24,3 +24,5 @@ function getDaysFromString(str) {
 }
 
 seedDatabaseWithPlants();
+
+module.exports = seedDatabaseWithPlants;
