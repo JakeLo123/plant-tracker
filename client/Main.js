@@ -8,26 +8,21 @@ import {
 } from '../utils';
 import axios from 'axios';
 
-export const selectToday = () => ({
-  visabilityFilter: 'day',
-  selectedDate: stringifyDate(new Date()),
-});
-
-export const selectNextDay = prevState => ({
-  visabilityFilter: 'day',
-  selectedDate: getNextDay(prevState.selectedDate),
-});
-
-export const selectDay = dateString => {
-  let selectedDate = dateString;
+export const selectDate = event => {
+  let dateToSelect;
+  if (event.target) {
+    dateToSelect = event.target.value;
+  } else {
+    dateToSelect = event;
+  }
   return {
-    visabilityFilter: 'day',
-    selectedDate: selectedDate,
+    visibilityFilter: 'day',
+    selectedDate: dateToSelect,
   };
 };
 
 export const selectWeek = () => ({
-  visabilityFilter: 'week',
+  visibilityFilter: 'week',
 });
 
 class Main extends React.Component {
@@ -38,11 +33,9 @@ class Main extends React.Component {
       schedule: {},
       selectedDate: stringifyDate(new Date()),
       selectedWeek: getWeekFromDay(stringifyDate(new Date())),
-      visabilityFilter: 'day',
+      visibilityFilter: 'day',
     };
-    this.selectToday = this.selectToday.bind(this);
-    this.nextDay = this.nextDay.bind(this);
-    this.selectDay = this.selectDay.bind(this);
+    this.changeSelectedDate = this.changeSelectedDate.bind(this);
     this.togglePlantWaterStatus = this.togglePlantWaterStatus.bind(this);
     this.selectWeek = this.selectWeek.bind(this);
   }
@@ -62,17 +55,8 @@ class Main extends React.Component {
       });
   }
 
-  selectToday() {
-    this.setState(selectToday);
-  }
-
-  nextDay() {
-    this.setState(selectNextDay);
-  }
-
-  selectDay(event) {
-    const dateString = event.target.value;
-    this.setState(selectDay(dateString));
+  changeSelectedDate(dateString) {
+    this.setState(selectDate(dateString));
   }
 
   selectWeek() {
@@ -101,25 +85,43 @@ class Main extends React.Component {
       schedule,
       selectedDate,
       selectedWeek,
-      visabilityFilter,
+      visibilityFilter,
     } = this.state;
     return (
       <div>
         <header>
           <h1>we grow in tandem</h1>
-          <div onClick={this.selectToday} className="pagination">
+          <div
+            onClick={() => {
+              const today = stringifyDate(new Date());
+              this.changeSelectedDate(today);
+            }}
+            id="today-btn"
+            className="pagination"
+          >
             today
           </div>
-          <div onClick={this.nextDay} className="pagination">
+          <div
+            onClick={() => {
+              const nextDay = getNextDay(selectedDate);
+              this.changeSelectedDate(nextDay);
+            }}
+            id="next-day-btn"
+            className="pagination"
+          >
             next day
           </div>
-          <div onClick={this.selectWeek} className="pagination">
+          <div
+            onClick={this.selectWeek}
+            id="this-week-btn"
+            className="pagination"
+          >
             this week
           </div>
         </header>
-        {visabilityFilter === 'day' ? (
+        {visibilityFilter === 'day' ? (
           <Day
-            selectDay={this.selectDay}
+            changeSelectedDate={this.changeSelectedDate}
             togglePlantWaterStatus={this.togglePlantWaterStatus}
             schedule={schedule}
             selectedDate={selectedDate}

@@ -8,10 +8,10 @@ module.exports = app;
 function createApp() {
   app.use(morgan('dev'));
   app.use(express.static(path.join(__dirname, '..', 'public')));
-    app.use(express.json());
-    app.use(express.urlencoded({ extended: true }));
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: true }));
 
-  app.use('/api', require('./api'))
+  app.use('/api', require('./api'));
 
   app.use((err, req, res, next) => {
     console.error(err);
@@ -20,9 +20,9 @@ function createApp() {
   });
 }
 
-const port = 3030;
+const port = process.env.PORT || 3030;
 
-function startListening(){
+function startListening() {
   app.listen(port, () => {
     console.log('listening on port ', port);
   });
@@ -38,9 +38,9 @@ function startApp() {
   startListening();
 }
 
-if(require.main === module){
+if (require.main === module) {
   createApp();
   startApp();
 } else {
-  createApp()
+  createApp();
 }
