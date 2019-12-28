@@ -51,12 +51,16 @@ describe('pagination', () => {
   after(() => {
     axios.get.restore();
   });
-  it('displays this week after click', () => {
+  it('displays the correct day', () => {
+    const dayWrapper = wrapper.find(Day);
+    const currentDate = stringifyDate(new Date());
+    expect(dayWrapper.props().selectedDate).to.equal(currentDate);
+  });
+  it('displays this week after click on `this week`', () => {
     const thisWeekButton = wrapper.find('#this-week-btn');
     expect(wrapper.find(Week)).to.have.length(0);
     thisWeekButton.simulate('click');
     expect(wrapper.find(Week)).to.have.length(1);
     expect(wrapper.find('h4')).to.have.length(5);
   });
-  it('displays the correct day', () => {});
 });

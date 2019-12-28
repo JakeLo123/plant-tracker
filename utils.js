@@ -27,8 +27,8 @@ const lengthOfOneDayMilliseconds = 86400000;
 
 function stringifyDate(dateObject) {
   const dayOfWeek = dayOfWeekMap[dateObject.getDay()];
-  const day = dateObject.getDate();
   const month = monthMap[dateObject.getMonth()];
+  const day = dateObject.getDate();
   const year = dateObject.getFullYear();
   const output = `${dayOfWeek} ${month} ${day}, ${year}`;
   return output;

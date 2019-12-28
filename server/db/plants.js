@@ -13,32 +13,32 @@ const Plant = db.define('plants', {
   },
   receivedWaterOnDates: {
     type: Sequelize.ARRAY(Sequelize.TEXT),
-    defaultValue: []
-  }
+    defaultValue: [],
+  },
 });
 
 // instance methods
-Plant.prototype.getSchedule = function(){
-  const finalWateringDate = new Date('March 10, 2020');
+Plant.prototype.getSchedule = function() {
   const oneDayMilliseconds = 86400000;
+  // const oneWeek = oneDayMilliseconds * 7;
+  const finalWateringDate = new Date('March 10, 2020');
   const interval = this.waterAfter * oneDayMilliseconds;
   let schedule = [];
   let date = Date.parse('Monday December 16, 2019');
-  while(date < finalWateringDate){
+  while (date < finalWateringDate) {
     let d = new Date(date);
-    if(d.getDay() === 0){
+    if (d.getDay() === 0) {
       date += oneDayMilliseconds;
       d = new Date(date);
-    }
-    else if (d.getDay() === 6){
+    } else if (d.getDay() === 6) {
       date -= oneDayMilliseconds;
       d = new Date(date);
     }
-    schedule.push(stringifyDate(d))
+    schedule.push(stringifyDate(d));
     date += interval;
   }
   return schedule;
-}
+};
 
 // prototype methods
 
