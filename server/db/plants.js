@@ -21,13 +21,12 @@ const Plant = db.define('plants', {
 Plant.prototype.getSchedule = function() {
   // MS stands for milliseconds
   const oneDayMS = 86400000;
-  const oneWeekMS = oneDayMS * 7;
-  const twelveWeeksMS = oneWeekMS * 12;
-  const currentDateMS = Date.parse(new Date());
-  const finalWateringDateMS = currentDateMS + twelveWeeksMS;
+  const oneYearMS = 365 * oneDayMS;
+  const firstWateringDateMS = Date.parse('Monday December 16, 2019');
+  const finalWateringDateMS = firstWateringDateMS + oneYearMS;
   const intervalMS = this.waterAfter * oneDayMS;
   let schedule = [];
-  let dateMS = Date.parse(new Date());
+  let dateMS = firstWateringDateMS;
   while (dateMS <= finalWateringDateMS) {
     let d = new Date(dateMS);
     if (d.getDay() === 0) {

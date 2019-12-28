@@ -51,16 +51,35 @@ describe('pagination', () => {
   after(() => {
     axios.get.restore();
   });
+  it('should fetch all plants', () => {
+    const state = mockData.data;
+    expect(wrapper.state().plants).to.deep.equal(state);
+  });
   it('displays the correct day', () => {
     const dayWrapper = wrapper.find(Day);
     const currentDate = stringifyDate(new Date());
     expect(dayWrapper.props().selectedDate).to.equal(currentDate);
+  });
+  it('should display a `select` tag with the selected day as the value', () => {
+    const dayWrapper = wrapper.find(Day);
+    const selectTag = dayWrapper.find('select').at(0);
+    expect(selectTag.props().value).to.equal(dayWrapper.props().selectedDate);
+  });
+  it('`select` tag should display the new selected day as the value after a change', () => {
+    const dayWrapper = wrapper.find(Day);
+    const selectTag = dayWrapper.find('select').at(0);
+    selectTag.simulate('change', {
+      target: { value: 'Sunday December 29, 2019' },
+    });
+    const newDayWrapper = wrapper.find(Day);
+    const newSelectTag = newDayWrapper.find('select').at(0);
+    expect(newSelectTag.props().value).to.equal('Sunday December 29, 2019');
   });
   it('displays this week after click on `this week`', () => {
     const thisWeekButton = wrapper.find('#this-week-btn');
     expect(wrapper.find(Week)).to.have.length(0);
     thisWeekButton.simulate('click');
     expect(wrapper.find(Week)).to.have.length(1);
-    expect(wrapper.find('h4')).to.have.length(5);
+    expect(wrapper.find(PlantList)).to.have.length(5);
   });
 });
