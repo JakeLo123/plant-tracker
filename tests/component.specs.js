@@ -51,7 +51,7 @@ describe('pagination', () => {
   after(() => {
     axios.get.restore();
   });
-  it('should fetch all plants', () => {
+  it('should fetch all plants; each plant has an id, name, waterAfter, recievedWaterOnDates, and schedule', () => {
     const state = mockData.data;
     expect(wrapper.state().plants).to.deep.equal(state);
   });

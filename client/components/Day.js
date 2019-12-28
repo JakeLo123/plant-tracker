@@ -1,5 +1,5 @@
 import React from 'react';
-import { stringifyDate, createDateOptions } from '../../utils';
+import { createDateOptions } from '../../utils';
 import PlantList from './PlantList';
 
 const Day = props => {
