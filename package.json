@@ -8,7 +8,7 @@
     "start": "node server",
     "dev": "webpack -w & nodemon server || true",
     "test:unit": "NODE_ENV='test' mocha -w --require @babel/register --require babel-polyfill --require ./tests/dom.js '**/*.specs.js' || true",
-    "test:react": "node server & mocha -w --require @babel/register --require babel-polyfill --require ./tests/dom.js './tests/component.specs.js' || true"
+    "test:react": "mocha -w --require @babel/register --require babel-polyfill --require ./tests/dom.js './tests/component.specs.js' || true"
   },
   "author": "Jake Loew",
   "license": "ISC",
