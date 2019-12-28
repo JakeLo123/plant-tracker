@@ -19,23 +19,28 @@ const Plant = db.define('plants', {
 
 // instance methods
 Plant.prototype.getSchedule = function() {
-  const oneDayMilliseconds = 86400000;
-  // const oneWeek = oneDayMilliseconds * 7;
-  const finalWateringDate = new Date('March 10, 2020');
-  const interval = this.waterAfter * oneDayMilliseconds;
+  // MS stands for milliseconds
+  const oneDayMS = 86400000;
+  const oneWeekMS = oneDayMS * 7;
+  const twelveWeeksMS = oneWeekMS * 12;
+  const currentDateMS = Date.parse(new Date());
+  const finalWateringDateMS = currentDateMS + twelveWeeksMS;
+  const intervalMS = this.waterAfter * oneDayMS;
   let schedule = [];
-  let date = Date.parse('Monday December 16, 2019');
-  while (date < finalWateringDate) {
-    let d = new Date(date);
+  let dateMS = Date.parse(new Date());
+  while (dateMS <= finalWateringDateMS) {
+    let d = new Date(dateMS);
     if (d.getDay() === 0) {
-      date += oneDayMilliseconds;
-      d = new Date(date);
+      // if Sunday bump to Monday
+      dateMS += oneDayMS;
+      d = new Date(dateMS);
     } else if (d.getDay() === 6) {
-      date -= oneDayMilliseconds;
-      d = new Date(date);
+      // if Saturday bump to Friday
+      dateMS -= oneDayMS;
+      d = new Date(dateMS);
     }
     schedule.push(stringifyDate(d));
-    date += interval;
+    dateMS += intervalMS;
   }
   return schedule;
 };

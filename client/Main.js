@@ -90,7 +90,7 @@ class Main extends React.Component {
     return (
       <div>
         <header>
-          <h1>we grow in tandem</h1>
+          <h1>tandem plant tracker</h1>
           <div
             onClick={() => {
               const today = stringifyDate(new Date());
@@ -99,7 +99,7 @@ class Main extends React.Component {
             id="today-btn"
             className="pagination"
           >
-            today
+            🌱today
           </div>
           <div
             onClick={() => {
@@ -109,14 +109,14 @@ class Main extends React.Component {
             id="next-day-btn"
             className="pagination"
           >
-            next day
+            🌱next day
           </div>
           <div
             onClick={this.selectWeek}
             id="this-week-btn"
             className="pagination"
           >
-            this week
+            🌱this week
           </div>
         </header>
         {visibilityFilter === 'day' ? (

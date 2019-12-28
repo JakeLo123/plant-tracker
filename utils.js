@@ -84,7 +84,7 @@ function toggleDateFromArray(dateToToggle, arrayOfDates) {
 }
 
 function createDateOptions() {
-  let output = ['Monday December 16, 2019'];
+  let output = [stringifyDate(new Date())];
   for (let i = 0; i < 85; ++i) {
     let curDateString = output[i];
     output.push(getNextDay(curDateString));
