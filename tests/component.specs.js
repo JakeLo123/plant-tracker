@@ -6,7 +6,7 @@ import { Day, PlantList, Week } from '../client/components';
 import { shallow, mount, render, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import axios from 'axios';
-import { fakeServer, stub } from 'sinon';
+import { stub } from 'sinon';
 configure({ adapter: new Adapter() });
 
 const mockData = {
@@ -32,14 +32,13 @@ describe('pagination', () => {
     wrapper = mount(<Main />);
   });
   after(() => {
-    // server.restore();
     axios.get.restore();
   });
   it('displays this week after click', () => {
-    // const thisWeekButton = wrapper.find('#this-week-btn');
-    // expect(wrapper.find(Week)).to.have.length(0);
-    // thisWeekButton.simulate('click');
-    // expect(wrapper.find(Week)).to.have.length(1);
+    const thisWeekButton = wrapper.find('#this-week-btn');
+    expect(wrapper.find(Week)).to.have.length(0);
+    thisWeekButton.simulate('click');
+    expect(wrapper.find(Week)).to.have.length(1);
   });
   it('displays the correct day', () => {});
 });
