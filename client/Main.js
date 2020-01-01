@@ -1,5 +1,5 @@
 import React from 'react';
-import { Day, Week } from './components';
+import { Day, Week, AddPlant } from './components';
 import {
   makeScheduleFromPlants,
   getNextDay,
@@ -34,6 +34,7 @@ class Main extends React.Component {
       selectedDate: stringifyDate(new Date()),
       selectedWeek: getWeekFromDay(stringifyDate(new Date())),
       visibilityFilter: 'day',
+      showAddPlantForm: false,
     };
     this.changeSelectedDate = this.changeSelectedDate.bind(this);
     this.togglePlantWaterStatus = this.togglePlantWaterStatus.bind(this);
@@ -118,7 +119,14 @@ class Main extends React.Component {
           >
             🌱this week
           </div>
+          <div
+            onClick={() => this.setState({ showAddPlantForm: true })}
+            className="pagination"
+          >
+            new plant
+          </div>
         </header>
+        {this.state.showAddPlantForm && <AddPlant />}
         {visibilityFilter === 'day' ? (
           <Day
             changeSelectedDate={this.changeSelectedDate}

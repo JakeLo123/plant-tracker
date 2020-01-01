@@ -1,5 +1,6 @@
 const { Plant, db } = require('../server/db');
 const { expect, assert } = require('chai');
+const { stringifyDate } = require('../utils');
 
 describe('Plant class', () => {
   let testPlant1;
@@ -14,7 +15,9 @@ describe('Plant class', () => {
     const cucumber = await Plant.create(testPlant1);
     expect(cucumber.name).to.equal('cucumber');
     expect(cucumber.waterAfter).to.equal(7);
-    expect(cucumber.receivedWaterOnDates).to.deep.equal([]);
+    expect(cucumber.receivedWaterOnDates).to.deep.equal([
+      stringifyDate(new Date()),
+    ]);
   });
   describe('getSchedule instance method', () => {
     let cucumber, schedule;
@@ -23,8 +26,9 @@ describe('Plant class', () => {
       cucumber = await Plant.create(testPlant1);
       schedule = cucumber.getSchedule();
     });
-    it('the Monday December 16, 2019 is the first watering day', () => {
-      expect(cucumber.getSchedule()[0]).to.include('Monday December 16, 2019');
+    it('first watering day is the day the plant instance was created', () => {
+      const dateCreated = stringifyDate(cucumber.createdAt);
+      expect(cucumber.getSchedule()[0]).to.equal(dateCreated);
     });
     it('does not include saturdays or sundays', () => {
       function isWeekday(str) {

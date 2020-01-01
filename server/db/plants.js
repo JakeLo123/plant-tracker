@@ -13,7 +13,7 @@ const Plant = db.define('plants', {
   },
   receivedWaterOnDates: {
     type: Sequelize.ARRAY(Sequelize.TEXT),
-    defaultValue: [],
+    defaultValue: [stringifyDate(new Date())],
   },
 });
 
@@ -22,7 +22,7 @@ Plant.prototype.getSchedule = function() {
   // MS stands for milliseconds
   const oneDayMS = 86400000;
   const oneYearMS = 365 * oneDayMS;
-  const firstWateringDateMS = Date.parse('Monday Decemer 16, 2019');
+  const firstWateringDateMS = Date.parse(this.receivedWaterOnDates[0]);
   const finalWateringDateMS = firstWateringDateMS + oneYearMS;
   const intervalMS = this.waterAfter * oneDayMS;
   let schedule = [];

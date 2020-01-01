@@ -7,7 +7,11 @@ async function seedDatabaseWithPlants() {
     await Promise.all(
       data.map(plant => {
         const waterAfter = getDaysFromString(plant.water_after);
-        const p = { name: plant.name, waterAfter: waterAfter };
+        const p = {
+          name: plant.name,
+          waterAfter: waterAfter,
+          receivedWaterOnDates: ['Monday December 16, 2019'],
+        };
         Plant.create(p);
         console.log('created plant: ', p);
       })

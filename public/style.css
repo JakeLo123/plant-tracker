@@ -69,6 +69,29 @@ header > .pagination:active {
     transition: 0.1s;
 }
 
+#add-plant-form {
+    animation: slide-in-from-right 0.45s;
+    animation-play-state: running;
+    position: absolute;
+    right: 25px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#add-plant-form > * {
+    margin: 5px;
+}
+
+#add-plant-form > div > label {
+    margin-right: 15px;
+}
+
+#add-plant-form > div > input {
+    outline: none;
+}
+
 #day-component {
     padding: 10px 50px;
     width: fit-content;

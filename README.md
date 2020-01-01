@@ -14,7 +14,7 @@ Visit `localhost:3030` to see the watering schedule for any given day between De
 This is a single-page-application. All data is fetched on the initial load, and conditionally rendered using React. Each plant instance has its own schedule. The `Main` component is the only stateful component; it creates a watering schedule based on the response from the initial request.
 
 ##### Object-model
-I decided to represent my data with a JavaScript class--`Plant`--because it is testable and easy to read/maintain. Each `Plant` instance represents one row in the database. The code for `Plant` can be found in `server/db/plants`. The instance method `getSchedule` creates a 12-week watering schedule starting on Dec 16. 
+I decided to represent my data with a JavaScript class--`Plant`--because it is testable and easy to read/maintain. Each `Plant` instance represents one row in the database. The code for `Plant` can be found in `server/db/plants`. The instance method `getSchedule` creates a watering schedule starting on the date the plant is added to the database. 
 Each plant also has a `receivedWaterOnDates` property that tracks when a user crosses a plant off the watering list for a particular date.
 
 ##### Parsing dates
