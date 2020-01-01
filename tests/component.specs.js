@@ -65,7 +65,7 @@ describe('pagination', () => {
     const selectTag = dayWrapper.find('select').at(0);
     expect(selectTag.props().value).to.equal(dayWrapper.props().selectedDate);
   });
-  it('`select` tag should display the new selected day as the value after a change', () => {
+  it('`select` tag should display the new selected day as the value on change', () => {
     const dayWrapper = wrapper.find(Day);
     const selectTag = dayWrapper.find('select').at(0);
     selectTag.simulate('change', {

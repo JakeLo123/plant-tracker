@@ -1,8 +1,7 @@
 const { Plant, db } = require('../server/db');
 const { expect, assert } = require('chai');
-const { stringifyDate } = require('../utils');
 
-xdescribe('Plant class', () => {
+describe('Plant class', () => {
   let testPlant1;
   beforeEach(async () => {
     await db.sync({ force: true });

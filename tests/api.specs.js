@@ -3,7 +3,7 @@ const { Plant, db } = require('../server/db');
 const { expect, assert } = require('chai');
 const request = require('supertest');
 
-xdescribe('api routes', () => {
+describe('api routes', () => {
   let testPlant1, testPlant2, testPlant3;
   beforeEach(async () => {
     await db.sync({ force: true });

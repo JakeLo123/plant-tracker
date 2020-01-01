@@ -90,7 +90,7 @@ class Main extends React.Component {
     return (
       <div>
         <header>
-          <h1>tandem plant tracker</h1>
+          <h1>we grow in tandem</h1>
           <div
             onClick={() => {
               const today = stringifyDate(new Date());
