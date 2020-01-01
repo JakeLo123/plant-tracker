@@ -78,18 +78,37 @@ header > .pagination:active {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid black;
+    box-shadow: 1px 1px 5px #286428a8;
+    z-index: 1;
+    background-color: #286428a8;
 }
 
 #add-plant-form > * {
     margin: 5px;
 }
 
+#add-plant-form > div {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 95%
+}
+
 #add-plant-form > div > label {
     margin-right: 15px;
+    flex: 1;
 }
 
 #add-plant-form > div > input {
     outline: none;
+    border: 1px solid black;
+    padding: 5px;
+    border-radius: 5px;
+    width: 100%;
+    flex: 2.5;
 }
 
 #day-component {

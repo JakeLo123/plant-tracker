@@ -4,13 +4,7 @@ const { toggleDateFromArray } = require('../../utils');
 
 router.get('/', async (req, res, next) => {
   try {
-    const plants = await Plant.findAll({
-      attributes: ['id', 'name', 'waterAfter', 'receivedWaterOnDates'],
-      order: ['id'],
-    });
-    plants.forEach(plant => {
-      plant.dataValues.schedule = plant.getSchedule();
-    });
+    const plants = await Plant.getMasterSchedule();
     res.json(plants);
   } catch (e) {
     console.log('error getting plants...');
@@ -34,6 +28,16 @@ router.put('/:id', async (req, res, next) => {
     res.json(plant);
   } catch (e) {
     console.log(`could not get plant with ${req.params.id}`);
+    next(e);
+  }
+});
+
+router.post('/addNewPlant', async (req, res, next) => {
+  try {
+    await Plant.create(req.body);
+    const updatedPlants = await Plant.getMasterSchedule();
+    res.json(updatedPlants);
+  } catch (e) {
     next(e);
   }
 });

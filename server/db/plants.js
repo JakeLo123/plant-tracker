@@ -45,5 +45,15 @@ Plant.prototype.getSchedule = function() {
 };
 
 // prototype methods
+Plant.getMasterSchedule = async function() {
+  const plants = await this.findAll({
+    attributes: ['id', 'name', 'waterAfter', 'receivedWaterOnDates'],
+    order: ['id'],
+  });
+  plants.forEach(plant => {
+    plant.dataValues.schedule = plant.getSchedule();
+  });
+  return plants;
+};
 
 module.exports = Plant;

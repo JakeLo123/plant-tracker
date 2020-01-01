@@ -39,6 +39,7 @@ class Main extends React.Component {
     this.changeSelectedDate = this.changeSelectedDate.bind(this);
     this.togglePlantWaterStatus = this.togglePlantWaterStatus.bind(this);
     this.selectWeek = this.selectWeek.bind(this);
+    this.addPlant = this.addPlant.bind(this);
   }
 
   componentDidMount() {
@@ -79,6 +80,18 @@ class Main extends React.Component {
         });
       })
       .catch(e => console.log('error: ', e));
+  }
+
+  addPlant(plant) {
+    axios
+      .post('/api/plants/addNewPlant', plant)
+      .then(res => {
+        this.setState({
+          plants: res.data,
+          schedule: makeScheduleFromPlants(res.data),
+        });
+      })
+      .catch(e => console.log('oh no!', e));
   }
 
   render() {
@@ -126,7 +139,7 @@ class Main extends React.Component {
             new plant
           </div>
         </header>
-        {this.state.showAddPlantForm && <AddPlant />}
+        {this.state.showAddPlantForm && <AddPlant addPlant={this.addPlant} />}
         {visibilityFilter === 'day' ? (
           <Day
             changeSelectedDate={this.changeSelectedDate}
