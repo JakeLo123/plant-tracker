@@ -8,11 +8,9 @@ router.get('/', async (req, res, next) => {
       attributes: ['id', 'name', 'waterAfter', 'receivedWaterOnDates'],
       order: ['id'],
     });
-    console.log("it's starting...");
     plants.forEach(plant => {
-      plant.dataValues.schedule = ['Friday January 3, 2020'];
+      plant.dataValues.schedule = plant.getSchedule();
     });
-    console.log("it's done...");
     res.json(plants);
   } catch (e) {
     console.log('error getting plants...');
@@ -43,8 +41,14 @@ router.put('/:id', async (req, res, next) => {
 router.post('/addNewPlant', async (req, res, next) => {
   try {
     await Plant.create(req.body);
-    const updatedPlants = await Plant.getMasterSchedule();
-    res.json(updatedPlants);
+    const plants = await Plant.findAll({
+      attributes: ['id', 'name', 'waterAfter', 'receivedWaterOnDates'],
+      order: ['id'],
+    });
+    plants.forEach(plant => {
+      plant.dataValues.schedule = plant.getSchedule();
+    });
+    res.json(plants);
   } catch (e) {
     next(e);
   }

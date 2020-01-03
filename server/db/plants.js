@@ -28,7 +28,7 @@ Plant.prototype.getSchedule = function() {
   const intervalMS = oneDayMS * this.waterAfter;
   let schedule = [];
   let dateMS = firstWateringDateMS;
-  while (dateMS <= finalWateringDateMS) {
+  while (dateMS < finalWateringDateMS) {
     let d = new Date(dateMS);
     if (d.getDay() === 0) {
       // if Sunday bump to Monday

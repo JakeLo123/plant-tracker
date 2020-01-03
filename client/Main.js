@@ -76,7 +76,6 @@ class Main extends React.Component {
         });
         this.setState({
           plants: updatedPlants,
-          schedule: makeScheduleFromPlants(updatedPlants),
         });
       })
       .catch(e => console.log('error: ', e));
@@ -86,9 +85,10 @@ class Main extends React.Component {
     axios
       .post('/api/plants/addNewPlant', plant)
       .then(res => {
+        const plants = res.data;
         this.setState({
-          plants: res.data,
-          schedule: makeScheduleFromPlants(res.data),
+          plants: plants,
+          schedule: makeScheduleFromPlants(plants),
         });
       })
       .catch(e => console.log('oh no!', e));
