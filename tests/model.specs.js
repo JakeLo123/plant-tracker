@@ -57,12 +57,13 @@ describe('Plant class', () => {
         ).to.be.within(minInterval, maxInterval);
       }
     });
-    it('should ceate a schedule that is 1 year long', () => {
+    it('should ceate a schedule that is 12 weeks long', () => {
       const oneDayMS = 86400000;
-      const oneYearMS = oneDayMS * 365;
+      const oneWeekMS = oneDayMS * 7;
+      const twelveWeeksMS = oneWeekMS * 12;
       const firstDateMS = Date.parse(schedule[0]);
       const lastDateMS = Date.parse(schedule[schedule.length - 1]);
-      expect(lastDateMS - firstDateMS).to.be.lessThan(oneYearMS);
+      expect(lastDateMS - firstDateMS).to.be.lessThan(twelveWeeksMS);
     });
   });
 });

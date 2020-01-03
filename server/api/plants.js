@@ -4,7 +4,15 @@ const { toggleDateFromArray } = require('../../utils');
 
 router.get('/', async (req, res, next) => {
   try {
-    const plants = await Plant.getMasterSchedule();
+    const plants = await Plant.findAll({
+      attributes: ['id', 'name', 'waterAfter', 'receivedWaterOnDates'],
+      order: ['id'],
+    });
+    console.log("it's starting...");
+    plants.forEach(plant => {
+      plant.dataValues.schedule = ['Friday January 3, 2020'];
+    });
+    console.log("it's done...");
     res.json(plants);
   } catch (e) {
     console.log('error getting plants...');
