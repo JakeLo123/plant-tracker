@@ -80,7 +80,7 @@ class Main extends React.Component {
         });
       })
       .catch(e => {
-        console.log('muthafuckin error: ', e);
+        console.log('error: ', e);
       });
   }
 
