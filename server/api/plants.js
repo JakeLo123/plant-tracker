@@ -5,7 +5,7 @@ const { toggleDateFromArray } = require('../../utils');
 router.get('/', async (req, res, next) => {
   try {
     const plants = await Plant.findAll({
-      attributes: ['id', 'name', 'waterAfter', 'lastWatered', 'waterHistory'],
+      attributes: ['id', 'name', 'waterAfter', 'waterHistory'],
       order: ['id'],
     });
     plants.forEach(plant => {
@@ -46,7 +46,7 @@ router.post('/add', async (req, res, next) => {
       console.log('no no can do');
     } else {
       const plants = await Plant.findAll({
-        attributes: ['id', 'name', 'waterAfter', 'lastWatered', 'waterHistory'],
+        attributes: ['id', 'name', 'waterAfter', 'waterHistory'],
         order: ['id'],
       });
       plants.forEach(plant => {
@@ -56,7 +56,7 @@ router.post('/add', async (req, res, next) => {
     }
   } catch (e) {
     console.error('something when wrong at POST /add...', e);
-    res.status(404).send('invalid input!!');
+    res.sendStatus(404);
   }
 });
 

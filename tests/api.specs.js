@@ -50,15 +50,13 @@ xdescribe('api routes', () => {
 
       assert.deepEqual(res.body.schedule, testPlant1.getSchedule());
     });
-    it("adds a string to a plant's receivedWaterOnDates column if it is not there", async () => {
+    it("adds a string to a plant's waterHistory column if it is not there", async () => {
       const res = await request(app)
         .put(`/api/plants/${plantId}`)
         .send(requestBody)
         .expect(200);
 
-      expect(res.body.receivedWaterOnDates).to.include(
-        'Monday December 16, 2019'
-      );
+      expect(res.body.waterHistory).to.include('Monday December 16, 2019');
     });
     it("removes a string from a plant's receivedWaterOnDates column when it is already in the column", async () => {
       const plant = await Plant.findByPk(plantId);

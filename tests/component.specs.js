@@ -8,20 +8,20 @@ import Adapter from 'enzyme-adapter-react-16';
 import axios from 'axios';
 import { stub } from 'sinon';
 import mockData from './MockData.js';
+import { stringify } from 'querystring';
 configure({ adapter: new Adapter() });
 
-xdescribe('Main component', () => {
+describe('Main component', () => {
+  const currentDate = stringifyDate(new Date());
   let wrapper;
   beforeEach(() => {
     wrapper = shallow(<Main />, { disableLifecycleMethods: true });
   });
   describe('local state', () => {
     it('should initialize with `selectedDate` set to the current date as a string', () => {
-      const currentDate = stringifyDate(new Date());
       expect(wrapper.state().selectedDate).to.equal(currentDate);
     });
-    it('should initialize with `selectedWeek` set to the current an array of dates representing the current week', () => {
-      const currentDate = stringifyDate(new Date());
+    it('should initialize with `selectedWeek` set to an array of dates representing the current week', () => {
       const currentWeek = getWeekFromDay(currentDate);
       expect(wrapper.state().selectedWeek).to.deep.equal(currentWeek);
     });
@@ -39,7 +39,7 @@ xdescribe('Main component', () => {
   });
 });
 
-xdescribe('pagination', () => {
+describe('pagination', () => {
   let wrapper, promise;
   before(() => {
     promise = Promise.resolve(mockData);
@@ -51,7 +51,7 @@ xdescribe('pagination', () => {
   after(() => {
     axios.get.restore();
   });
-  it('should fetch all plants; each plant has an id, name, waterAfter, recievedWaterOnDates, and schedule', () => {
+  it('should fetch all plants; each plant has an id, name, waterAfter, lastWatered, waterHistory, and schedule', () => {
     const state = mockData.data;
     expect(wrapper.state().plants).to.deep.equal(state);
   });
@@ -81,5 +81,35 @@ xdescribe('pagination', () => {
     thisWeekButton.simulate('click');
     expect(wrapper.find(Week)).to.have.length(1);
     expect(wrapper.find(PlantList)).to.have.length(5);
+  });
+});
+describe('togglePlantWaterStatus', () => {
+  let wrapper, promise;
+
+  before(() => {
+    promise = Promise.resolve({
+      id: 1,
+      name: 'Fiddle Leaf Fig',
+      waterAfter: 2,
+      lastWatered: null,
+      waterHistory: [],
+      schedule: [
+        'Monday January 13, 2020',
+        'Monday January 20, 2020',
+        'Monday January 27, 2020',
+        'Monday February 3, 2020',
+        'Monday February 10, 2020',
+        'Monday February 17, 2020',
+        'Monday February 24, 2020',
+        'Monday March 2, 2020',
+        'Monday March 9, 2020',
+        'Monday March 16, 2020',
+        'Monday March 23, 2020',
+      ],
+    });
+    wrapper = mount(<Main />);
+    stub(axios, 'put')
+      .withArgs('/api/plants/1', 'Monday January 6, 2020')
+      .returns(promise);
   });
 });

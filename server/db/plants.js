@@ -25,10 +25,6 @@ const Plant = db.define('plants', {
     type: Sequelize.INTEGER,
     allowNull: false,
   },
-  lastWatered: {
-    type: Sequelize.DATEONLY,
-    defaultValue: null,
-  },
   waterHistory: {
     type: Sequelize.ARRAY(Sequelize.STRING),
     defaultValue: [],
@@ -42,10 +38,10 @@ Plant.prototype.getSchedule = function() {
   const oneWeekMS = oneDayMS * 7;
   const twelveWeeksMS = oneWeekMS * 12;
   let lastWateredMS;
-  if (this.lastWatered === null) {
+  if (!this.waterHistory.length) {
     lastWateredMS = Date.parse(new Date());
   } else {
-    lastWateredMS = Date.parse(this.lastWatered);
+    lastWateredMS = Date.parse(this.waterHistory[this.waterHistory.length - 1]);
   }
   const finalWateringDateMS = lastWateredMS + twelveWeeksMS;
   const intervalMS = oneDayMS * this.waterAfter;

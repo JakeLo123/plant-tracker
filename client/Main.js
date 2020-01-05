@@ -8,6 +8,7 @@ import {
 } from '../utils';
 import axios from 'axios';
 
+// click handlers
 export const selectDate = event => {
   let dateToSelect;
   if (event.target) {
@@ -25,6 +26,9 @@ export const selectWeek = () => ({
   visibilityFilter: 'week',
 });
 
+export const togglePlant = () => {};
+
+// stateful component
 class Main extends React.Component {
   constructor() {
     super();
