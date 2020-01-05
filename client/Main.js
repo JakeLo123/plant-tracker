@@ -56,6 +56,7 @@ class Main extends React.Component {
         console.error('error fetching plants...', e);
       });
   }
+  g;
 
   changeSelectedDate(dateString) {
     this.setState(selectDate(dateString));

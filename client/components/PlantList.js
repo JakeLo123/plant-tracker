@@ -20,7 +20,9 @@ const PlantList = props => {
           );
         })
       ) : (
-        <div id="no-plants">no plants need watering...</div>
+        <div className="plant" id="no-plants">
+          no plants need watering...
+        </div>
       )}
     </div>
   );

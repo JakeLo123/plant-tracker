@@ -11,23 +11,25 @@ const Plant = db.define('plants', {
     type: Sequelize.INTEGER,
     allowNull: false,
   },
-  receivedWaterOnDates: {
-    type: Sequelize.ARRAY(Sequelize.TEXT),
-    defaultValue: [stringifyDate(new Date())],
+  lastWatered: {
+    type: Sequelize.DATEONLY,
+    defaultValue: null,
   },
 });
 
 // instance methods
 Plant.prototype.getSchedule = function() {
-  // MS stands for milliseconds
+  // MS is for milliseconds
   const oneDayMS = 86400000;
   const oneWeekMS = oneDayMS * 7;
   const twelveWeeksMS = oneWeekMS * 12;
-  const firstWateringDateMS = Date.parse(this.receivedWaterOnDates[0]);
-  const finalWateringDateMS = firstWateringDateMS + twelveWeeksMS;
+  let lastWateredMS;
+  if (!this.lastWatered) lastWateredMS = Date.parse(new Date());
+  else lastWateredMS = Date.parse(this.lastWatered);
+  const finalWateringDateMS = lastWateredMS + twelveWeeksMS;
   const intervalMS = oneDayMS * this.waterAfter;
   let schedule = [];
-  let dateMS = firstWateringDateMS;
+  let dateMS = lastWateredMS;
   while (dateMS < finalWateringDateMS) {
     let d = new Date(dateMS);
     if (d.getDay() === 0) {
@@ -46,15 +48,15 @@ Plant.prototype.getSchedule = function() {
 };
 
 // prototype methods
-Plant.getMasterSchedule = async function() {
-  const plants = await this.findAll({
-    attributes: ['id', 'name', 'waterAfter', 'receivedWaterOnDates'],
-    order: ['id'],
-  });
-  plants.forEach(plant => {
-    plant.dataValues.schedule = plant.getSchedule();
-  });
-  return plants;
-};
+// Plant.getMasterSchedule = async function() {
+//   const plants = await this.findAll({
+//     attributes: ['id', 'name', 'waterAfter', 'receivedWaterOnDates'],
+//     order: ['id'],
+//   });
+//   plants.forEach(plant => {
+//     plant.dataValues.schedule = plant.getSchedule();
+//   });
+//   return plants;
+// };
 
 module.exports = Plant;
