@@ -111,6 +111,14 @@ header > .pagination:active {
     flex: 2.5;
 }
 
+button {
+    width: 95%;
+    padding: 3px;
+    border-radius: 5px;
+    border: 1px solid black;
+    background-color: white;
+}
+
 #day-component {
     padding: 10px 50px;
     width: fit-content;

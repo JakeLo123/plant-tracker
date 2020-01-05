@@ -56,7 +56,6 @@ class Main extends React.Component {
         console.error('error fetching plants...', e);
       });
   }
-  g;
 
   changeSelectedDate(dateString) {
     this.setState(selectDate(dateString));
@@ -77,14 +76,17 @@ class Main extends React.Component {
         });
         this.setState({
           plants: updatedPlants,
+          schedule: makeScheduleFromPlants(updatedPlants),
         });
       })
-      .catch(e => console.log('error: ', e));
+      .catch(e => {
+        console.log('muthafuckin error: ', e);
+      });
   }
 
   addPlant(plant) {
     axios
-      .post('/api/plants/addNewPlant', plant)
+      .post('/api/plants/add', plant)
       .then(res => {
         const plants = res.data;
         this.setState({
@@ -93,6 +95,7 @@ class Main extends React.Component {
         });
       })
       .catch(e => console.log('oh no!', e));
+    this.setState({ showAddPlantForm: false });
   }
 
   render() {

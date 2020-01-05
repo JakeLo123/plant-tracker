@@ -7,7 +7,7 @@ const {
 } = require('../utils');
 const { assert, expect } = require('chai');
 
-describe('utility functions for parsing dates', () => {
+xdescribe('utility functions for parsing dates', () => {
   describe('stringifyDate', () => {
     it('accepts a date object and returns string', () => {
       const date = new Date();

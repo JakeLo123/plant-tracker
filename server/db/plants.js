@@ -6,6 +6,20 @@ const Plant = db.define('plants', {
   name: {
     type: Sequelize.STRING,
     allowNull: false,
+    validate: {
+      notNull: {
+        message: 'plant must have a name!',
+      },
+      hasLength(value) {
+        if (value.length < 1) {
+          throw new Error('plant must have a name!');
+        }
+      },
+    },
+    unique: {
+      args: true,
+      message: 'plant name must be unique!',
+    },
   },
   waterAfter: {
     type: Sequelize.INTEGER,
@@ -14,6 +28,10 @@ const Plant = db.define('plants', {
   lastWatered: {
     type: Sequelize.DATEONLY,
     defaultValue: null,
+  },
+  waterHistory: {
+    type: Sequelize.ARRAY(Sequelize.STRING),
+    defaultValue: [],
   },
 });
 
@@ -24,8 +42,11 @@ Plant.prototype.getSchedule = function() {
   const oneWeekMS = oneDayMS * 7;
   const twelveWeeksMS = oneWeekMS * 12;
   let lastWateredMS;
-  if (!this.lastWatered) lastWateredMS = Date.parse(new Date());
-  else lastWateredMS = Date.parse(this.lastWatered);
+  if (this.lastWatered === null) {
+    lastWateredMS = Date.parse(new Date());
+  } else {
+    lastWateredMS = Date.parse(this.lastWatered);
+  }
   const finalWateringDateMS = lastWateredMS + twelveWeeksMS;
   const intervalMS = oneDayMS * this.waterAfter;
   let schedule = [];
@@ -37,8 +58,8 @@ Plant.prototype.getSchedule = function() {
       dateMS += oneDayMS;
       d = new Date(dateMS);
     } else if (d.getDay() === 6) {
-      // if Saturday bump to Friday
-      dateMS -= oneDayMS;
+      // if Saturday bump to Monday
+      dateMS += oneDayMS + oneDayMS;
       d = new Date(dateMS);
     }
     schedule.push(stringifyDate(d));

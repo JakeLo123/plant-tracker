@@ -10,7 +10,7 @@ import { stub } from 'sinon';
 import mockData from './MockData.js';
 configure({ adapter: new Adapter() });
 
-describe('Main component', () => {
+xdescribe('Main component', () => {
   let wrapper;
   beforeEach(() => {
     wrapper = shallow(<Main />, { disableLifecycleMethods: true });
@@ -39,7 +39,7 @@ describe('Main component', () => {
   });
 });
 
-describe('pagination', () => {
+xdescribe('pagination', () => {
   let wrapper, promise;
   before(() => {
     promise = Promise.resolve(mockData);

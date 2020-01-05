@@ -6,7 +6,7 @@ const PlantList = props => {
     <div id="plant-list-container">
       {schedule[selectedDate] && schedule[selectedDate].length ? (
         schedule[selectedDate].map(plant => {
-          const water = plant.receivedWaterOnDates.includes(selectedDate)
+          const water = plant.waterHistory.includes(selectedDate)
             ? 'needs-no-water'
             : 'needs-water';
           return (

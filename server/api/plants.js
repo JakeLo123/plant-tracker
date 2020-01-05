@@ -5,11 +5,12 @@ const { toggleDateFromArray } = require('../../utils');
 router.get('/', async (req, res, next) => {
   try {
     const plants = await Plant.findAll({
-      attributes: ['id', 'name', 'waterAfter', 'receivedWaterOnDates'],
+      attributes: ['id', 'name', 'waterAfter', 'lastWatered', 'waterHistory'],
       order: ['id'],
     });
     plants.forEach(plant => {
       plant.dataValues.schedule = plant.getSchedule();
+      // plant.dataValues.schedule = 'write this!';
     });
     res.json(plants);
   } catch (e) {
@@ -23,12 +24,12 @@ router.put('/:id', async (req, res, next) => {
     const plantId = req.params.id;
     const dateToToggle = req.body.dateToToggle;
     const plant = await Plant.findByPk(plantId);
-    const updatedReceivedWaterOnDates = toggleDateFromArray(
+    const updatedWaterHistory = toggleDateFromArray(
       dateToToggle,
-      plant.receivedWaterOnDates
+      plant.waterHistory
     );
     await plant.update({
-      receivedWaterOnDates: updatedReceivedWaterOnDates,
+      waterHistory: updatedWaterHistory,
     });
     plant.dataValues.schedule = plant.getSchedule();
     res.json(plant);
@@ -38,19 +39,24 @@ router.put('/:id', async (req, res, next) => {
   }
 });
 
-router.post('/addNewPlant', async (req, res, next) => {
+router.post('/add', async (req, res, next) => {
   try {
-    await Plant.create(req.body);
-    const plants = await Plant.findAll({
-      attributes: ['id', 'name', 'waterAfter', 'receivedWaterOnDates'],
-      order: ['id'],
-    });
-    plants.forEach(plant => {
-      plant.dataValues.schedule = plant.getSchedule();
-    });
-    res.json(plants);
+    let newPlant = await Plant.create(req.body);
+    if (!newPlant) {
+      console.log('no no can do');
+    } else {
+      const plants = await Plant.findAll({
+        attributes: ['id', 'name', 'waterAfter', 'lastWatered', 'waterHistory'],
+        order: ['id'],
+      });
+      plants.forEach(plant => {
+        plant.dataValues.schedule = plant.getSchedule();
+      });
+      res.json(plants);
+    }
   } catch (e) {
-    next(e);
+    console.error('something when wrong at POST /add...', e);
+    res.status(404).send('invalid input!!');
   }
 });
 

@@ -11,13 +11,12 @@ describe('Plant class', () => {
       waterAfter: 7,
     };
   });
-  it('creates an instance with a name, waterAfter, and receivedWaterOn properties', async () => {
+  it('creates an instance with a name, waterAfter, lastWatered, and waterHistory properties', async () => {
     const cucumber = await Plant.create(testPlant1);
     expect(cucumber.name).to.equal('cucumber');
     expect(cucumber.waterAfter).to.equal(7);
-    expect(cucumber.receivedWaterOnDates).to.deep.equal([
-      stringifyDate(new Date()),
-    ]);
+    expect(cucumber.lastWatered).to.equal(null);
+    expect(cucumber.waterHistory).to.deep.equal([]);
   });
   describe('getSchedule instance method', () => {
     let cucumber, schedule;
@@ -26,9 +25,16 @@ describe('Plant class', () => {
       cucumber = await Plant.create(testPlant1);
       schedule = cucumber.getSchedule();
     });
-    it('first watering day is the day the plant instance was created', () => {
+    it('should list the current day as the first watering date for a band new plant, unless the current day is on a weekend', () => {
       const dateCreated = stringifyDate(cucumber.createdAt);
-      expect(cucumber.getSchedule()[0]).to.equal(dateCreated);
+      const firstWateringDate = cucumber.getSchedule()[0];
+      if (dateCreated.startsWith('Saturday')) {
+        assert(firstWateringDate.startsWith('Friday'), true);
+      } else if (dateCreated.startsWith('Sunday')) {
+        assert(firstWateringDate.startsWith('Monday'), true);
+      } else {
+        expect(firstWateringDate).to.equal(dateCreated);
+      }
     });
     it('does not include saturdays or sundays', () => {
       function isWeekday(str) {

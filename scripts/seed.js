@@ -10,7 +10,6 @@ async function seedDatabaseWithPlants() {
         const p = {
           name: plant.name,
           waterAfter: waterAfter,
-          receivedWaterOnDates: ['Monday December 16, 2019'],
         };
         Plant.create(p);
         console.log('created plant: ', p);
