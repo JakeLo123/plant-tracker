@@ -3,9 +3,32 @@ const app = express();
 const morgan = require('morgan');
 const { db } = require('./db');
 const path = require('path');
+const session = require('express-session');
+const passport = require('passport');
 module.exports = app;
 
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = await db.models.user.findByPk(id);
+    done(null, user);
+  } catch (err) {
+    done(err);
+  }
+});
+
 function createApp() {
+  app.use(
+    session({
+      secret: process.env.SESSION_SECRET || 'insecure',
+      resave: false,
+      saveUninitialized: true,
+    })
+  );
+
   app.use(morgan('dev'));
   app.use(express.static(path.join(__dirname, '..', 'public')));
   app.use(express.json());

@@ -18,20 +18,28 @@ class AuthForm extends React.Component {
   }
   handleSubmit(event) {
     event.preventDefault();
-    // axios.post(`/auth/`);
+    const pathname =
+      this.props.location.pathname === '/login' ? 'login' : 'signup';
+    console.log('clicked!');
+    axios
+      .put(`/auth/${pathname}`, this.state)
+      .then(res => console.log('response: ', res.data));
   }
 
   render() {
     const pathname =
-      this.props.location.pathname === '/login' ? 'Login' : 'Signup';
+      this.props.location.pathname === '/login' ? 'login' : 'signup';
     return (
-      <UsernameAndEmail
-        handleChange={this.handleChange}
-        handleSubmit={this.handleSubmit}
-        username={this.state.username}
-        password={this.state.password}
-        pathname={pathname}
-      />
+      <div id="login-signup-container">
+        <h1>{pathname}</h1>
+        <UsernameAndEmail
+          handleChange={this.handleChange}
+          handleSubmit={this.handleSubmit}
+          username={this.state.username}
+          password={this.state.password}
+          pathname={pathname}
+        />
+      </div>
     );
   }
 }
@@ -39,7 +47,7 @@ class AuthForm extends React.Component {
 const UsernameAndEmail = props => {
   const { handleChange, handleSubmit, username, password, pathname } = props;
   return (
-    <form>
+    <form onSubmit={handleSubmit} id="username-and-email">
       <label htmlFor="username">username</label>
       <input
         onChange={handleChange}

@@ -30,8 +30,8 @@ User.prototype.hasCorrectPassword = function(candidatePassword) {
 };
 
 function setAndSaltPassword(user) {
-  this.salt = generateSalt();
-  this.password = encryptPassword(user.password, user.salt);
+  user.salt = generateSalt();
+  user.password = encryptPassword(user.password, user.salt);
 }
 
 function generateSalt() {
