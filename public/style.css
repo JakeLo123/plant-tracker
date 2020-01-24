@@ -58,6 +58,7 @@ header > .pagination {
     text-align: center;
     border: 1px solid black;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 header > .pagination:active {
@@ -125,10 +126,10 @@ select {
 }
 
 .small-plant-list > h4 {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     width: fit-content;
     padding: 4px 10px;
-    border-radius: 5px;
+    /* border-radius: 5px; */
 }
 
 .small-plant-list > #plant-list-container > .plant, .small-plant-list > #plant-list-container > #no-plants {

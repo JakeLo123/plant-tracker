@@ -1,5 +1,14 @@
 # components
 login
+
 signup
-create greenhouse
-add plant
+
+navigation
+    -logout
+    -view all my plants
+        -edit plants
+        -add plants
+    -schedule
+        -today
+        -next day
+        -this week
