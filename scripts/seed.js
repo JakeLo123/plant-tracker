@@ -4,30 +4,23 @@ const { db, Plant, User } = require('../server/db');
 async function seedDatabaseWithPlants() {
   try {
     await db.sync({ force: true });
-    // await Promise.all(
-    //   data.map(plant => {
-    //     const waterAfter = getDaysFromString(plant.water_after);
-    //     const p = { name: plant.name, waterAfter: waterAfter };
-    //     Plant.create(p);
-    //     console.log('created plant: ', p);
-    //   })
-    // );
-    await Plant.create({
+    const plant1 = await Plant.create({
       name: 'banana',
       waterAfter: 1,
     });
-    await Plant.create({
+    const plant2 = await Plant.create({
       name: 'tomato',
       waterAfter: 2,
     });
-    await Plant.create({
+    const plant3 = await Plant.create({
       name: 'flower',
       waterAfter: 3,
     });
-    await User.create({
-      name: 'Jake',
+    const jake = await User.create({
+      username: 'Jake',
       password: 'banana',
     });
+    await jake.setPlants([plant1, plant2, plant3]);
     console.log('Seeding success! Seeds planted!');
   } catch (e) {
     console.error('error seeding database...', e);

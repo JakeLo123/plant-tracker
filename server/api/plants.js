@@ -33,7 +33,7 @@ router.put('/:id', async (req, res, next) => {
     plant.dataValues.schedule = plant.getSchedule();
     res.json(plant);
   } catch (e) {
-    console.log(`could not get plant with ${req.params.id}`);
+    console.log(`could not get plant with id: ${req.params.id}`);
     next(e);
   }
 });
