@@ -3,8 +3,13 @@ const app = express();
 const morgan = require('morgan');
 const { db } = require('./db');
 const path = require('path');
+
 const session = require('express-session');
 const passport = require('passport');
+
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
+const dbStore = new SequelizeStore({ db: db });
+dbStore.sync();
 module.exports = app;
 
 passport.serializeUser(function(user, done) {
@@ -24,6 +29,7 @@ function createApp() {
   app.use(
     session({
       secret: process.env.SESSION_SECRET || 'insecure',
+      store: dbStore,
       resave: false,
       saveUninitialized: true,
     })

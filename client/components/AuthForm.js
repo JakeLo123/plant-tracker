@@ -14,13 +14,11 @@ class AuthForm extends React.Component {
 
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
-    console.log(this.state);
   }
   handleSubmit(event) {
     event.preventDefault();
     const pathname =
       this.props.location.pathname === '/login' ? 'login' : 'signup';
-    console.log('clicked!');
     axios
       .put(`/auth/${pathname}`, this.state)
       .then(res => console.log('response: ', res.data));

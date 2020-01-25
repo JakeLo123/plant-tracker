@@ -1,11 +1,34 @@
 const router = require('express').Router();
-const { User } = require('../db');
+const { User, Plant } = require('../db');
 
 function userNotFound(message) {
   const err = new Error(message);
   err.status = 404;
   console.error(err);
 }
+
+router.get('/me', async (req, res, next) => {
+  try {
+    if (req.session.userId) {
+      const user = await User.findOne({
+        where: {
+          id: req.session.userId,
+        },
+        attributes: ['id', 'username'],
+        include: {
+          model: Plant,
+          attributes: ['id', 'name', 'waterAfter', 'receivedWaterOnDates'],
+        },
+      });
+      res.json(user);
+    } else {
+      res.send({ message: 'please log in' });
+      console.log('NO SESSION FOUND');
+    }
+  } catch (err) {
+    next(err);
+  }
+});
 
 router.put('/login', async (req, res, next) => {
   try {
@@ -14,13 +37,15 @@ router.put('/login', async (req, res, next) => {
       where: {
         username: username,
       },
+      attributes: ['id', 'username'],
     });
     if (!user) userNotFound('could not find user with username ' + username);
     if (!user.hasCorrectPassword(password))
       userNotFound('username and password do not match');
     else {
       req.session.userId = user.id;
-      console.log('user...', user);
+      console.log('user logged in: ', user.dataValues);
+      res.json(user);
     }
   } catch (err) {
     console.log(err);
