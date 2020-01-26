@@ -2,9 +2,12 @@ const router = require('express').Router();
 const { Plant } = require('../db');
 const { toggleDateFromArray } = require('../../utils');
 
-router.get('/', async (req, res, next) => {
+router.get('/:userId', async (req, res, next) => {
   try {
     const plants = await Plant.findAll({
+      where: {
+        userId: req.params.userId,
+      },
       attributes: ['id', 'name', 'waterAfter', 'receivedWaterOnDates'],
       order: ['id'],
     });

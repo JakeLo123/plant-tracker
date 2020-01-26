@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getUsersPlantsThunk } from './plants';
 
 const initialUser = {};
 
@@ -16,6 +17,7 @@ export const getUserThunk = () => async dispatch => {
   try {
     const res = await axios.get('/auth/me');
     const user = res.data;
+    dispatch(getUsersPlantsThunk(user.id));
     dispatch(getUser(user));
   } catch (e) {
     console.error(e);
