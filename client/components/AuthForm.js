@@ -19,9 +19,23 @@ class AuthForm extends React.Component {
     event.preventDefault();
     const pathname =
       this.props.location.pathname === '/login' ? 'login' : 'signup';
-    axios
-      .put(`/auth/${pathname}`, this.state)
-      .then(res => console.log('response: ', res.data));
+    if (pathname === 'login') {
+      axios
+        .put(`/auth/${pathname}`, this.state)
+        .then(res => {
+          console.log('response: ', res.data);
+          console.log('history...', this.props.history);
+          this.props.history.push('/');
+        })
+        .catch(e => console.log('there was an error', e));
+    } else {
+      axios
+        .post(`/auth/${pathname}`, this.state)
+        .then(res => {
+          console.log('response: ', res.data);
+        })
+        .catch(() => console.log('there was an error'));
+    }
   }
 
   render() {

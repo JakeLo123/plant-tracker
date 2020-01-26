@@ -38,13 +38,16 @@ router.put('/login', async (req, res, next) => {
         username: username,
       },
       attributes: ['id', 'username'],
+      include: {
+        model: Plant,
+        attributes: ['id', 'name', 'waterAfter', 'receivedWaterOnDates'],
+      },
     });
     if (!user) userNotFound('could not find user with username ' + username);
-    if (!user.hasCorrectPassword(password))
-      userNotFound('username and password do not match');
+    // if (!user.hasCorrectPassword(password))
+    //   userNotFound('username and password do not match');
     else {
       req.session.userId = user.id;
-      console.log('user logged in: ', user.dataValues);
       res.json(user);
     }
   } catch (err) {
@@ -53,12 +56,36 @@ router.put('/login', async (req, res, next) => {
   }
 });
 
-router.post('/signup', (req, res, next) => {
-  // write me!
+router.post('/signup', async (req, res, next) => {
+  try {
+    const { username, password } = req.body;
+    const newUser = await User.create({ username, password });
+    if (!newUser) {
+      throw new Error('could not create user with credentials: ', {
+        username,
+        password,
+      });
+    } else {
+      req.session.userId = newUser.id;
+      res.json({
+        id: newUser.id,
+        username: newUser.username,
+      });
+    }
+  } catch (err) {
+    console.log(err);
+    next(err);
+  }
 });
 
 router.delete('/logout', (req, res, next) => {
-  // write me!
+  try {
+    req.session.destroy();
+    res.sendStatus(204);
+  } catch (err) {
+    console.log(err);
+    next(err);
+  }
 });
 
 module.exports = router;
