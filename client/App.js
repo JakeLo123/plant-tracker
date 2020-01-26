@@ -7,7 +7,6 @@ import { Switch, Route } from 'react-router-dom';
 const App = props => {
   useEffect(() => {
     props.getUser();
-    console.log('okay');
   }, []);
 
   const userLoggedIn = props.user.id;

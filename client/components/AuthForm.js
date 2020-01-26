@@ -1,5 +1,7 @@
 import React from 'react';
 import axios from 'axios';
+import { authorizeThunk } from '../store/user';
+import { connect } from 'react-redux';
 
 class AuthForm extends React.Component {
   constructor(props) {
@@ -15,27 +17,31 @@ class AuthForm extends React.Component {
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
+  // handleSubmit(event) {
+  //   event.preventDefault();
+  //   const pathname =
+  //     this.props.location.pathname === '/login' ? 'login' : 'signup';
+  //   if (pathname === 'login') {
+  //     axios
+  //       .post(`/auth/${pathname}`, this.state)
+  //       .then(res => {
+  //         console.log('response: ', res.data);
+  //       })
+  //       .catch(e => console.log('there was an error', e));
+  //   } else {
+  //     axios
+  //       .post(`/auth/${pathname}`, this.state)
+  //       .then(res => {
+  //         console.log('response: ', res.data);
+  //       })
+  //       .catch(() => console.log('there was an error'));
+  //   }
+  // }
   handleSubmit(event) {
     event.preventDefault();
     const pathname =
       this.props.location.pathname === '/login' ? 'login' : 'signup';
-    if (pathname === 'login') {
-      axios
-        .put(`/auth/${pathname}`, this.state)
-        .then(res => {
-          console.log('response: ', res.data);
-          console.log('history...', this.props.history);
-          this.props.history.push('/');
-        })
-        .catch(e => console.log('there was an error', e));
-    } else {
-      axios
-        .post(`/auth/${pathname}`, this.state)
-        .then(res => {
-          console.log('response: ', res.data);
-        })
-        .catch(() => console.log('there was an error'));
-    }
+    this.props.authorize(this.state, pathname);
   }
 
   render() {
@@ -79,4 +85,8 @@ const UsernameAndEmail = props => {
   );
 };
 
-export default AuthForm;
+const mapDispatch = dispatch => ({
+  authorize: (formData, method) => dispatch(authorizeThunk(formData, method)),
+});
+
+export default connect(null, mapDispatch)(AuthForm);

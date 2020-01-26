@@ -15,10 +15,6 @@ router.get('/me', async (req, res, next) => {
           id: req.session.userId,
         },
         attributes: ['id', 'username'],
-        include: {
-          model: Plant,
-          attributes: ['id', 'name', 'waterAfter', 'receivedWaterOnDates'],
-        },
       });
       res.json(user);
     } else {
@@ -30,18 +26,15 @@ router.get('/me', async (req, res, next) => {
   }
 });
 
-router.put('/login', async (req, res, next) => {
+router.post('/login', async (req, res, next) => {
   try {
     const { username, password } = req.body;
+    console.log('request body in LOGIN...', req.body);
     const user = await User.findOne({
       where: {
         username: username,
       },
       attributes: ['id', 'username'],
-      include: {
-        model: Plant,
-        attributes: ['id', 'name', 'waterAfter', 'receivedWaterOnDates'],
-      },
     });
     if (!user) userNotFound('could not find user with username ' + username);
     // if (!user.hasCorrectPassword(password))
@@ -59,6 +52,7 @@ router.put('/login', async (req, res, next) => {
 router.post('/signup', async (req, res, next) => {
   try {
     const { username, password } = req.body;
+    console.log('request body in SIGN UP...', req.body);
     const newUser = await User.create({ username, password });
     if (!newUser) {
       throw new Error('could not create user with credentials: ', {
