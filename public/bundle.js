@@ -110,18 +110,6 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var reac
 
 /***/ }),
 
-/***/ "./client/components/Day.js":
-/*!**********************************!*\
-  !*** ./client/components/Day.js ***!
-  \**********************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils */ \"./utils.js\");\n/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_utils__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _PlantList__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./PlantList */ \"./client/components/PlantList.js\");\n\n\n // const Day = props => {\n//   let {\n//     togglePlantWaterStatus,\n//     selectedDate,\n//     changeSelectedDate,\n//     schedule,\n//   } = props;\n//   return (\n//     <div id=\"day-component\">\n//       <select\n//         value={selectedDate}\n//         id=\"current-day\"\n//         onChange={changeSelectedDate}\n//         className=\"pagination\"\n//       >\n//         {createDateOptions().map(date => {\n//           return <option key={date}>{date}</option>;\n//         })}\n//       </select>\n//       {selectedDate.split(' ')[0] === 'Saturday' ||\n//       selectedDate.split(' ')[0] === 'Sunday' ? (\n//         <h2>no watering on the weekends!</h2>\n//       ) : (\n//         <PlantList\n//           togglePlantWaterStatus={togglePlantWaterStatus}\n//           selectedDate={selectedDate}\n//           schedule={schedule}\n//         />\n//       )}\n//     </div>\n//   );\n// };\n// export default Day;\n\n//# sourceURL=webpack:///./client/components/Day.js?");
-
-/***/ }),
-
 /***/ "./client/components/PlantList.js":
 /*!****************************************!*\
   !*** ./client/components/PlantList.js ***!
@@ -150,11 +138,11 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var reac
 /*!************************************!*\
   !*** ./client/components/index.js ***!
   \************************************/
-/*! exports provided: Day, Week, PlantList, AuthForm */
+/*! exports provided: Week, PlantList, AuthForm */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _Day__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Day */ \"./client/components/Day.js\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"Day\", function() { return _Day__WEBPACK_IMPORTED_MODULE_0__[\"default\"]; });\n\n/* harmony import */ var _Week__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Week */ \"./client/components/Week.js\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"Week\", function() { return _Week__WEBPACK_IMPORTED_MODULE_1__[\"default\"]; });\n\n/* harmony import */ var _PlantList__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./PlantList */ \"./client/components/PlantList.js\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"PlantList\", function() { return _PlantList__WEBPACK_IMPORTED_MODULE_2__[\"default\"]; });\n\n/* harmony import */ var _AuthForm__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./AuthForm */ \"./client/components/AuthForm.js\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"AuthForm\", function() { return _AuthForm__WEBPACK_IMPORTED_MODULE_3__[\"default\"]; });\n\n\n\n\n\n\n\n//# sourceURL=webpack:///./client/components/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _Week__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Week */ \"./client/components/Week.js\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"Week\", function() { return _Week__WEBPACK_IMPORTED_MODULE_0__[\"default\"]; });\n\n/* harmony import */ var _PlantList__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PlantList */ \"./client/components/PlantList.js\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"PlantList\", function() { return _PlantList__WEBPACK_IMPORTED_MODULE_1__[\"default\"]; });\n\n/* harmony import */ var _AuthForm__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AuthForm */ \"./client/components/AuthForm.js\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"AuthForm\", function() { return _AuthForm__WEBPACK_IMPORTED_MODULE_2__[\"default\"]; });\n\n// import Day from './Day';\n\n\n\n\n\n//# sourceURL=webpack:///./client/components/index.js?");
 
 /***/ }),
 
@@ -4488,7 +4476,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, __RouterContext, generatePath, matchPath, useHistory, useLocation, useParams, useRouteMatch, withRouter, BrowserRouter, HashRouter, Link, NavLink */
+/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, __RouterContext, generatePath, matchPath, useHistory, useLocation, useParams, useRouteMatch, withRouter */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4740,17 +4728,6 @@ eval("var g;\n\n// This works in non-strict mode\ng = (function() {\n\treturn th
 /***/ (function(module, exports) {
 
 eval("module.exports = function(originalModule) {\n\tif (!originalModule.webpackPolyfill) {\n\t\tvar module = Object.create(originalModule);\n\t\t// module.parent = undefined by default\n\t\tif (!module.children) module.children = [];\n\t\tObject.defineProperty(module, \"loaded\", {\n\t\t\tenumerable: true,\n\t\t\tget: function() {\n\t\t\t\treturn module.l;\n\t\t\t}\n\t\t});\n\t\tObject.defineProperty(module, \"id\", {\n\t\t\tenumerable: true,\n\t\t\tget: function() {\n\t\t\t\treturn module.i;\n\t\t\t}\n\t\t});\n\t\tObject.defineProperty(module, \"exports\", {\n\t\t\tenumerable: true\n\t\t});\n\t\tmodule.webpackPolyfill = 1;\n\t}\n\treturn module;\n};\n\n\n//# sourceURL=webpack:///(webpack)/buildin/harmony-module.js?");
-
-/***/ }),
-
-/***/ "./utils.js":
-/*!******************!*\
-  !*** ./utils.js ***!
-  \******************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-eval("var dayOfWeekMap = {\n  0: 'Sunday',\n  1: 'Monday',\n  2: 'Tuesday',\n  3: 'Wednesday',\n  4: 'Thursday',\n  5: 'Friday',\n  6: 'Saturday'\n};\nvar monthMap = {\n  0: 'January',\n  1: 'February',\n  2: 'March',\n  3: 'April',\n  4: 'May',\n  5: 'June',\n  6: 'July',\n  7: 'August',\n  8: 'September',\n  9: 'October',\n  10: 'November',\n  11: 'December'\n};\nvar lengthOfOneDayMilliseconds = 86400000;\n\nfunction stringifyDate(dateObject) {\n  var dayOfWeek = dayOfWeekMap[dateObject.getDay()];\n  var month = monthMap[dateObject.getMonth()];\n  var day = dateObject.getDate();\n  var year = dateObject.getFullYear();\n  var output = \"\".concat(dayOfWeek, \" \").concat(month, \" \").concat(day, \", \").concat(year);\n  return output;\n}\n\nfunction makeScheduleFromPlants(plants) {\n  return plants.reduce(function (accum, plant) {\n    plant.schedule.forEach(function (day) {\n      if (!accum[day]) accum[day] = [plant];else accum[day].push(plant);\n    });\n    return accum;\n  }, {});\n}\n\nfunction getNextDay(dateString) {\n  var d = Date.parse(dateString);\n  var nextDay = new Date(d + lengthOfOneDayMilliseconds);\n  return stringifyDate(nextDay);\n}\n\nfunction getWeekFromDay(dateString) {\n  var week = [];\n  var curDateObj = new Date(dateString);\n  var day = curDateObj.getDay();\n\n  if (day === 0) {\n    curDateObj = new Date(Date.parse(curDateObj) + lengthOfOneDayMilliseconds);\n    day = new Date(curDateObj).getDay();\n  } else if (day > 1) {\n    while (day > 1) {\n      curDateObj = new Date(Date.parse(curDateObj) - lengthOfOneDayMilliseconds);\n      day = new Date(curDateObj).getDay();\n    }\n  }\n\n  while (day < 6) {\n    var dateStringToAdd = stringifyDate(curDateObj);\n    week.push(dateStringToAdd);\n    curDateObj = new Date(Date.parse(curDateObj) + lengthOfOneDayMilliseconds);\n    day = new Date(curDateObj).getDay();\n  }\n\n  return week;\n}\n\nfunction toggleDateFromArray(dateToToggle, arrayOfDates) {\n  if (arrayOfDates.includes(dateToToggle)) {\n    arrayOfDates = arrayOfDates.filter(function (date) {\n      return date !== dateToToggle;\n    });\n  } else {\n    arrayOfDates.push(dateToToggle);\n  }\n\n  return arrayOfDates;\n}\n\nfunction createDateOptions() {\n  var output = [stringifyDate(new Date())];\n\n  for (var i = 0; i < 85; ++i) {\n    var curDateString = output[i];\n    output.push(getNextDay(curDateString));\n  }\n\n  return output;\n}\n\nmodule.exports = {\n  stringifyDate: stringifyDate,\n  makeScheduleFromPlants: makeScheduleFromPlants,\n  getNextDay: getNextDay,\n  getWeekFromDay: getWeekFromDay,\n  toggleDateFromArray: toggleDateFromArray,\n  createDateOptions: createDateOptions\n};\n\n//# sourceURL=webpack:///./utils.js?");
 
 /***/ }),
 
