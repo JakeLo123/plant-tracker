@@ -11,7 +11,9 @@ const User = db.define(
     },
     password: {
       type: Sequelize.STRING,
-      allowNull: false,
+      get() {
+        return () => this.getDataValue('password');
+      },
     },
     salt: {
       type: Sequelize.STRING,
@@ -29,13 +31,8 @@ const User = db.define(
 );
 
 User.prototype.hasCorrectPassword = function(candidatePassword) {
-  return encryptPassword(candidatePassword, this.salt()) === this.password;
+  return encryptPassword(candidatePassword, this.salt()) === this.password();
 };
-
-function setAndSaltPassword(user) {
-  user.salt = generateSalt();
-  user.password = encryptPassword(user.password, user.salt());
-}
 
 function generateSalt() {
   return crypto.randomBytes(16).toString('base64');
@@ -43,10 +40,15 @@ function generateSalt() {
 
 function encryptPassword(password, salt) {
   return crypto
-    .createHash('sha1')
+    .createHash('sha256')
     .update(password)
     .update(salt)
     .digest('hex');
+}
+
+function setAndSaltPassword(user) {
+  user.salt = generateSalt();
+  user.password = encryptPassword(user.password(), user.salt());
 }
 
 module.exports = User;

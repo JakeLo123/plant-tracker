@@ -14,7 +14,7 @@
 
 # requirements
 ### app
-[ ] - if no user is logged in, app should only render login / signup
+[x] - if no user is logged in, app should only render login / signup
 
 ### my plants
 [ ] - displays all plants

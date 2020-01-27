@@ -1,7 +1,7 @@
 import React from 'react';
-import axios from 'axios';
 import { authorizeThunk } from '../store/user';
 import { connect } from 'react-redux';
+// import { Redirect } from 'react-router-dom';
 
 class AuthForm extends React.Component {
   constructor(props) {
@@ -11,48 +11,25 @@ class AuthForm extends React.Component {
       password: '',
     };
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
-  // handleSubmit(event) {
-  //   event.preventDefault();
-  //   const pathname =
-  //     this.props.location.pathname === '/login' ? 'login' : 'signup';
-  //   if (pathname === 'login') {
-  //     axios
-  //       .post(`/auth/${pathname}`, this.state)
-  //       .then(res => {
-  //         console.log('response: ', res.data);
-  //       })
-  //       .catch(e => console.log('there was an error', e));
-  //   } else {
-  //     axios
-  //       .post(`/auth/${pathname}`, this.state)
-  //       .then(res => {
-  //         console.log('response: ', res.data);
-  //       })
-  //       .catch(() => console.log('there was an error'));
-  //   }
-  // }
-  handleSubmit(event) {
-    event.preventDefault();
-    const pathname =
-      this.props.location.pathname === '/login' ? 'login' : 'signup';
-    this.props.authorize(this.state, pathname);
-  }
 
   render() {
     const pathname =
       this.props.location.pathname === '/login' ? 'login' : 'signup';
+    // const isLoggedIn = this.props.user.id;
     return (
       <div id="login-signup-container">
         <h1>{pathname}</h1>
         <UsernameAndEmail
           handleChange={this.handleChange}
-          handleSubmit={this.handleSubmit}
+          handleSubmit={event => {
+            event.preventDefault();
+            this.props.authorize(this.state, pathname);
+          }}
           username={this.state.username}
           password={this.state.password}
           pathname={pathname}
@@ -84,6 +61,10 @@ const UsernameAndEmail = props => {
     </form>
   );
 };
+
+// const mapState = state => ({
+//   user: state.user,
+// });
 
 const mapDispatch = dispatch => ({
   authorize: (formData, method) => dispatch(authorizeThunk(formData, method)),

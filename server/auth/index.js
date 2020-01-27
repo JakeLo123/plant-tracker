@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User, Plant } = require('../db');
+const { User } = require('../db');
 
 function userNotFound(message) {
   const err = new Error(message);
@@ -18,10 +18,11 @@ router.get('/me', async (req, res, next) => {
       });
       res.json(user);
     } else {
-      res.send({ message: 'please log in' });
+      res.sendStatus(404);
       console.log('NO SESSION FOUND');
     }
   } catch (err) {
+    console.log(err);
     next(err);
   }
 });
@@ -29,17 +30,16 @@ router.get('/me', async (req, res, next) => {
 router.post('/login', async (req, res, next) => {
   try {
     const { username, password } = req.body;
-    console.log('request body in LOGIN...', req.body);
     const user = await User.findOne({
       where: {
         username: username,
       },
-      attributes: ['id', 'username'],
+      // attributes: ['id', 'username'],
     });
     if (!user) userNotFound('could not find user with username ' + username);
-    // if (!user.hasCorrectPassword(password))
-    //   userNotFound('username and password do not match');
-    else {
+    if (!user.hasCorrectPassword(password)) {
+      userNotFound('username and password do not match');
+    } else {
       req.session.userId = user.id;
       res.json(user);
     }
@@ -52,7 +52,6 @@ router.post('/login', async (req, res, next) => {
 router.post('/signup', async (req, res, next) => {
   try {
     const { username, password } = req.body;
-    console.log('request body in SIGN UP...', req.body);
     const newUser = await User.create({ username, password });
     if (!newUser) {
       throw new Error('could not create user with credentials: ', {

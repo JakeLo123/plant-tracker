@@ -6,6 +6,7 @@ const initialUser = {};
 // constants
 const FETCH_USER = 'FETCH_USER';
 const AUTHORIZE = 'AUTHORIZE';
+const LOGOUT_USER = 'LOGOUT_USER';
 
 // action creators
 const getUser = user => ({
@@ -16,14 +17,20 @@ const authorize = user => ({
   type: AUTHORIZE,
   user,
 });
+const logoutUser = () => ({
+  type: LOGOUT_USER,
+});
 
 // thunk creators
 export const getUserThunk = () => async dispatch => {
   try {
     const res = await axios.get('/auth/me');
+    console.log('ze user...', res);
     const user = res.data;
-    dispatch(getUsersPlantsThunk(user.id));
-    dispatch(getUser(user));
+    if (user.id) {
+      dispatch(getUser(user));
+      dispatch(getUsersPlantsThunk(user.id));
+    }
   } catch (e) {
     console.error(e);
   }
@@ -33,8 +40,18 @@ export const authorizeThunk = (data, method) => async dispatch => {
   try {
     const res = await axios.post(`/auth/${method}`, data);
     const user = res.data;
-    dispatch(getUsersPlantsThunk(user.id));
     dispatch(authorize(user));
+    if (user) dispatch(getUsersPlantsThunk(user.id));
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+export const logoutUserThunk = () => async dispatch => {
+  try {
+    const res = await axios.delete('/auth/logout');
+    console.log(res.status);
+    dispatch(logoutUser());
   } catch (e) {
     console.error(e);
   }
@@ -46,6 +63,8 @@ const userReducer = (state = initialUser, action) => {
       return action.user;
     case AUTHORIZE:
       return action.user;
+    case LOGOUT_USER:
+      return {};
     default:
       return state;
   }
