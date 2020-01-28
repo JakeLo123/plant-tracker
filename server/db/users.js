@@ -34,6 +34,13 @@ User.prototype.hasCorrectPassword = function(candidatePassword) {
   return encryptPassword(candidatePassword, this.salt()) === this.password();
 };
 
+User.prototype.sanitize = function() {
+  return {
+    id: this.id,
+    username: this.username,
+  };
+};
+
 function generateSalt() {
   return crypto.randomBytes(16).toString('base64');
 }

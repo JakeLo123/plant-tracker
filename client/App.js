@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { getUserThunk } from './store/user';
-import { AuthForm, MyPlants, Schedule } from './components';
+import { AuthFormContainer, MyPlants, Schedule } from './components';
 import { Switch, Route } from 'react-router-dom';
 
 const App = props => {
@@ -17,9 +17,9 @@ const App = props => {
     </Switch>
   ) : (
     <Switch>
-      <Route path="/signup" component={AuthForm} />
-      <Route path="/login" component={AuthForm} />
-      <Route path="/" component={AuthForm} />
+      <Route path="/signup" component={AuthFormContainer} />
+      <Route path="/login" component={AuthFormContainer} />
+      <Route path="/" component={AuthFormContainer} />
     </Switch>
   );
 };

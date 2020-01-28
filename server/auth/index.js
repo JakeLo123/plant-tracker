@@ -1,10 +1,11 @@
 const router = require('express').Router();
 const { User } = require('../db');
 
-function userNotFound(message) {
-  const err = new Error(message);
-  err.status = 404;
-  console.error(err);
+function userNotFound(res, message) {
+  res.status = 404;
+  res.send({
+    message: message,
+  });
 }
 
 router.get('/me', async (req, res, next) => {
@@ -34,14 +35,14 @@ router.post('/login', async (req, res, next) => {
       where: {
         username: username,
       },
-      // attributes: ['id', 'username'],
     });
-    if (!user) userNotFound('could not find user with username ' + username);
-    if (!user.hasCorrectPassword(password)) {
-      userNotFound('username and password do not match');
+    if (!user) {
+      res.send({ error: `could not find user with username ${username}` });
+    } else if (!user.hasCorrectPassword(password)) {
+      res.send({ error: 'username and password do not match' });
     } else {
       req.session.userId = user.id;
-      res.json(user);
+      res.json(user.sanitize());
     }
   } catch (err) {
     console.log(err);
@@ -60,10 +61,7 @@ router.post('/signup', async (req, res, next) => {
       });
     } else {
       req.session.userId = newUser.id;
-      res.json({
-        id: newUser.id,
-        username: newUser.username,
-      });
+      res.json(newUser.sanitize());
     }
   } catch (err) {
     console.log(err);

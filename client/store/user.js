@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import axios from 'axios';
 import { getUsersPlantsThunk } from './plants';
 
@@ -38,6 +39,9 @@ export const getUserThunk = () => async dispatch => {
 export const authorizeThunk = (data, method) => async dispatch => {
   try {
     const res = await axios.post(`/auth/${method}`, data);
+    if (res.data.error) {
+      alert(res.data.error);
+    }
     const user = res.data;
     dispatch(authorize(user));
     if (user) dispatch(getUsersPlantsThunk(user.id));
