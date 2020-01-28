@@ -25,7 +25,6 @@ const logoutUser = () => ({
 export const getUserThunk = () => async dispatch => {
   try {
     const res = await axios.get('/auth/me');
-    console.log('ze user...', res);
     const user = res.data;
     if (user.id) {
       dispatch(getUser(user));
@@ -49,8 +48,7 @@ export const authorizeThunk = (data, method) => async dispatch => {
 
 export const logoutUserThunk = () => async dispatch => {
   try {
-    const res = await axios.delete('/auth/logout');
-    console.log(res.status);
+    await axios.delete('/auth/logout');
     dispatch(logoutUser());
   } catch (e) {
     console.error(e);

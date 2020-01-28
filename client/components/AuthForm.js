@@ -1,7 +1,6 @@
 import React from 'react';
 import { authorizeThunk } from '../store/user';
 import { connect } from 'react-redux';
-// import { Redirect } from 'react-router-dom';
 
 class AuthForm extends React.Component {
   constructor(props) {
@@ -9,30 +8,47 @@ class AuthForm extends React.Component {
     this.state = {
       username: '',
       password: '',
+      authMethod: this.props.location.pathname.slice(1),
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.changeAuthMethod = this.changeAuthMethod.bind(this);
   }
 
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
 
+  handleSubmit(event) {
+    event.preventDefault();
+    this.props.history.push('/plants');
+    const formData = {
+      username: this.state.username,
+      password: this.state.password,
+    };
+    this.props.authorize(formData, this.state.authMethod);
+  }
+
+  changeAuthMethod(method) {
+    this.setState({ authMethod: method });
+    this.props.history.push(`/${method}`);
+  }
+
   render() {
     const pathname =
       this.props.location.pathname === '/login' ? 'login' : 'signup';
-    // const isLoggedIn = this.props.user.id;
     return (
       <div id="login-signup-container">
-        <h1>{pathname}</h1>
+        <div id="auth-method-options">
+          <h1 onClick={() => this.changeAuthMethod('login')}>login</h1>
+          <h1 onClick={() => this.changeAuthMethod('signup')}>signup</h1>
+        </div>
         <UsernameAndEmail
           handleChange={this.handleChange}
-          handleSubmit={event => {
-            event.preventDefault();
-            this.props.authorize(this.state, pathname);
-          }}
+          handleSubmit={this.handleSubmit}
           username={this.state.username}
           password={this.state.password}
-          pathname={pathname}
+          pathname={this.state.authMethod}
         />
       </div>
     );
