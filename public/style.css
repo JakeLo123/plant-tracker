@@ -5,7 +5,7 @@
 body {
     animation: slide-in-from-right 0.45s;
     animation-play-state: running;
-    background-color: lightgreen;
+    background-color: #5ada5aa8;
     height: 100%;
     width: 100%;
     margin: 0;
@@ -31,20 +31,22 @@ body {
 #app {
     margin: 0;
     padding: 0px;
-    width: 100%;
+    justify-content: center;
 }
 
 #login-signup-container {
-    position: absolute;
-    top: 15vh;
-    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-#username-and-email {
+#login-signup-container > h2 {
+    margin: 15px 0 0 0;
+}
+
+form {
+    margin: 0;
     display: flex;
     flex-direction: column;
     width: 200px;
@@ -88,12 +90,16 @@ button:hover {
 #navbar {
     max-width: 100%;
     padding: 10px;
-    background-color: #286428a8;
+    background-color: lightgreen;
     box-shadow: 1px 1px 5px #286428a8;
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
     justify-content: space-evenly;
+}
+
+#navbar > h1 {
+    margin: 0 auto;
 }
 
 .nav-item {
@@ -114,6 +120,56 @@ button:hover {
 
 a {
     text-decoration: none;
+}
+
+#my-plants-container {
+    padding: 0 20px;
+}
+
+#add-plant-button {
+    position: fixed;
+    top: 100px;
+    right: 35px;
+    font-size: 13px;
+}
+
+.plant-card {
+    margin: 10px;
+    padding: 10px;
+    background-color: #28642828;
+    display: flex;
+    align-items: center;
+}
+
+.plant-card > * {
+    margin: 0 10px;
+}
+
+.plant-card > .edit-details {
+    font-size: 13px;
+}
+
+.btn {
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    transform: scale(1.1, 1.1)
+}
+
+#add-plant-modal {
+    animation: slide-in-from-right 0.2s;
+    animation-play-state: running;
+    z-index: 1;
+    position: fixed;
+    padding: 40px;
+    top: 20%;
+    left: 30%;
+    box-shadow: 5px 5px 20px black;
+    background-color: rgb(80, 133, 80);
 }
 
 /* * * * * * */
