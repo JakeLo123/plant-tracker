@@ -23,7 +23,7 @@ const MyPlants = props => {
       >
         add another plant
       </div>
-      {showModal && <AddPlantModal />}
+      {showModal && <AddPlantModal setShowModal={setShowModal} />}
     </div>
   );
 };

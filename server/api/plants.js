@@ -41,4 +41,15 @@ router.put('/:id', async (req, res, next) => {
   }
 });
 
+router.post('/add', async (req, res, next) => {
+  try {
+    const newPlant = await Plant.create(req.body);
+    newPlant.dataValues.schedule = newPlant.getSchedule();
+    res.json(newPlant);
+  } catch (e) {
+    console.log(`could not post plant to database`);
+    next(e);
+  }
+});
+
 module.exports = router;
