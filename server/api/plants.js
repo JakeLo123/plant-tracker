@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Plant } = require('../db');
+const { Plant, User } = require('../db');
 const { toggleDateFromArray } = require('../../utils');
 
 router.get('/:userId', async (req, res, next) => {
@@ -44,6 +44,8 @@ router.put('/:id', async (req, res, next) => {
 router.post('/add', async (req, res, next) => {
   try {
     const newPlant = await Plant.create(req.body);
+    const user = await User.findByPk(req.session.userId);
+    user.addPlant(newPlant);
     newPlant.dataValues.schedule = newPlant.getSchedule();
     res.json(newPlant);
   } catch (e) {

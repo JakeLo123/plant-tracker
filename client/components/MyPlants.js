@@ -4,17 +4,23 @@ import Navbar from './Navbar';
 import PlantCard from './PlantCard';
 import AddPlantModal from './AddPlantModal';
 
-const MyPlants = props => {
+const MyPlants = ({ plants }) => {
   const [showModal, setShowModal] = useState(false);
 
   return (
     <div className="nav-and-page-container">
       <Navbar />
       <div id="my-plants-container">
-        <h1>my plants: </h1>
-        {props.plants.map(plant => (
-          <PlantCard key={plant.id} plant={plant} />
-        ))}
+        {plants.length ? (
+          <div>
+            <h1>my plants: </h1>
+            {plants.map(plant => (
+              <PlantCard key={plant.id} plant={plant} />
+            ))}
+          </div>
+        ) : (
+          <h1>You have no plants. Go get Some!</h1>
+        )}
       </div>
       <div
         id="add-plant-button"
