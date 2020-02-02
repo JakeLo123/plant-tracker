@@ -5,7 +5,7 @@
 body {
     animation: slide-in-from-right 0.45s;
     animation-play-state: running;
-    background-color: lightgreen;
+    background-color: #5ada5aa8;
     height: 100%;
     width: 100%;
     margin: 0;
@@ -31,43 +31,159 @@ body {
 #app {
     margin: 0;
     padding: 0px;
-    width: 100%;
+    justify-content: center;
 }
 
-header {
-    max-width: 100%;
-    padding: 10px;
-    background-color: #286428a8;
-    box-shadow: 1px 1px 5px #286428a8;
+#login-signup-container {
     display: flex;
-    flex-wrap: nowrap;
-    align-items: flex-end;
-    justify-content: space-evenly;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-header > * {
-    height: 100%;
-    margin: 0px 10px;
+#login-signup-container > h2 {
+    margin: 15px 0 0 0;
 }
 
-header > .pagination {
-    flex: 3;
-    margin: 5px;
-    padding: 5px 12px;
-    max-width: fit-content;
-    text-align: center;
+form {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+}
+
+#username-and-email > * {
+    margin-top: 10px;
+}
+
+input {
+    outline: none;
+    padding: 7px;
     border: 1px solid black;
     border-radius: 5px;
 }
 
-header > .pagination:active {
-    transform: translateY(1px)
+button {
+    padding: 10px;
+    background-color: rgba(144, 238, 144, 0.479);
+    border: 1px solid black;
+    border-radius: 5px;
+    font-size: 20px;
+    cursor: pointer;
 }
 
-.pagination:hover {
-    transform: scale(1.1, 1.1);
-    transition: 0.1s;
+button:hover {
+    background-color: white;
+    transform: scale(1.1, 1.1)
 }
+
+#change-auth-method {
+    text-decoration: underline;
+    cursor: pointer;
+    align-self: center;
+}
+
+#change-auth-method:hover {
+    transform: scale(1.1, 1.1)
+}
+
+#navbar {
+    max-width: 100%;
+    padding: 10px;
+    background-color: lightgreen;
+    box-shadow: 1px 1px 5px #286428a8;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+#navbar > h1 {
+    margin: 0 auto;
+}
+
+.nav-item {
+    height: 100%;
+    margin: 0px 10px;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px;
+    background-color: rgba(144, 238, 144, 0.747);
+    cursor: pointer;
+    color: black;
+}
+
+.nav-item:hover {
+    background-color: lightgreen;
+}
+
+a {
+    text-decoration: none;
+}
+
+#my-plants-container {
+    padding: 0 20px;
+}
+
+#add-plant-button {
+    position: fixed;
+    top: 95px;
+    right: 35px;
+    font-size: 13px;
+}
+
+.plant-card {
+    margin: 10px;
+    padding: 10px;
+    background-color: #28642828;
+    display: flex;
+    align-items: center;
+}
+
+.plant-card > * {
+    margin: 0 10px;
+}
+
+.plant-card > .edit-details {
+    font-size: 13px;
+}
+
+.btn {
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    transform: scale(1.1, 1.1)
+}
+
+#add-plant-modal {
+    animation: slide-in-from-right 0.2s;
+    animation-play-state: running;
+    z-index: 1;
+    position: fixed;
+    padding: 0px 40px 40px 40px;
+    top: 20%;
+    left: 30%;
+    box-shadow: 5px 5px 20px black;
+    background-color: rgb(80, 133, 80);
+}
+
+#exit-modal {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 25px;
+}
+
+#schedule-container {
+    padding: 0 20px;
+}
+
+/* * * * * * */
 
 #day-component {
     padding: 10px 50px;
@@ -125,10 +241,8 @@ select {
 }
 
 .small-plant-list > h4 {
-    border: 1px solid black;
     width: fit-content;
     padding: 4px 10px;
-    border-radius: 5px;
 }
 
 .small-plant-list > #plant-list-container > .plant, .small-plant-list > #plant-list-container > #no-plants {
@@ -146,7 +260,7 @@ select {
 }
 
 @media only screen and (max-width: 600px) {
-    header > h1 {
+    #navbar > h1 {
         display: none;
     }
     .selected-week-container {

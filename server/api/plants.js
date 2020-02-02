@@ -1,10 +1,13 @@
 const router = require('express').Router();
-const { Plant } = require('../db');
+const { Plant, User } = require('../db');
 const { toggleDateFromArray } = require('../../utils');
 
-router.get('/', async (req, res, next) => {
+router.get('/:userId', async (req, res, next) => {
   try {
     const plants = await Plant.findAll({
+      where: {
+        userId: req.params.userId,
+      },
       attributes: ['id', 'name', 'waterAfter', 'receivedWaterOnDates'],
       order: ['id'],
     });
@@ -33,7 +36,20 @@ router.put('/:id', async (req, res, next) => {
     plant.dataValues.schedule = plant.getSchedule();
     res.json(plant);
   } catch (e) {
-    console.log(`could not get plant with ${req.params.id}`);
+    console.log(`could not get plant with id: ${req.params.id}`);
+    next(e);
+  }
+});
+
+router.post('/add', async (req, res, next) => {
+  try {
+    const newPlant = await Plant.create(req.body);
+    const user = await User.findByPk(req.session.userId);
+    user.addPlant(newPlant);
+    newPlant.dataValues.schedule = newPlant.getSchedule();
+    res.json(newPlant);
+  } catch (e) {
+    console.log(`could not post plant to database`);
     next(e);
   }
 });

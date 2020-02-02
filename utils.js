@@ -85,7 +85,7 @@ function toggleDateFromArray(dateToToggle, arrayOfDates) {
 
 function createDateOptions() {
   let output = [stringifyDate(new Date())];
-  for (let i = 0; i < 85; ++i) {
+  for (let i = 0; i < 50; ++i) {
     let curDateString = output[i];
     output.push(getNextDay(curDateString));
   }
