@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { authorizeThunk } from '../../store/user';
 import { connect } from 'react-redux';
 
-const useValidation = (initialState, validate) => {
+const useValidation = (initialState, validate, authenticate) => {
   const [values, setValues] = useState(initialState);
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
@@ -11,7 +11,7 @@ const useValidation = (initialState, validate) => {
     if (loading) {
       const noErrors = Object.keys(errors).length === 0;
       if (noErrors) {
-        console.log('authenticated...', values.username, values.password);
+        authenticate();
         setLoading(false);
       } else {
         setLoading(false);
@@ -37,17 +37,9 @@ const useValidation = (initialState, validate) => {
     console.log('authenticated...', values.username, values.password);
     setErrors(validationErrors);
     setLoading(true);
-    // props.authorize({ username, password }, method);
   }
 
   return { handleChange, handleSubmit, handleBlur, values, errors, loading };
 };
 
-// const mapDispatch = dispatch => ({
-//   authorize: (formData, method) => {
-//     dispatch(authorizeThunk(formData, method));
-//   },
-// });
-
-// export default connect(null, mapDispatch)(useValidation);
 export default useValidation;

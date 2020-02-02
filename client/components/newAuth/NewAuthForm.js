@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-// import { authorizeThunk } from '../../store/user';
-// import { connect } from 'react-redux';
+import { authorizeThunk } from '../../store/user';
+import { connect } from 'react-redux';
 import useValidation from './useValidation';
 import validateAuth from './validateAuth';
 
@@ -11,6 +11,7 @@ const INITIAL_STATE = {
 
 const NewAuthForm = props => {
   const method = 'login';
+  const [databaseError, setDatabaseError] = useState(null);
   const {
     handleChange,
     handleSubmit,
@@ -18,7 +19,16 @@ const NewAuthForm = props => {
     values,
     errors,
     loading,
-  } = useValidation(INITIAL_STATE, validateAuth);
+  } = useValidation(INITIAL_STATE, validateAuth, authenticateUser);
+
+  function authenticateUser() {
+    try {
+      props.authenticate(values, method);
+    } catch (err) {
+      console.error('auth error', err);
+      setDatabaseError(err.message);
+    }
+  }
 
   return (
     <div id="auth-form-container" className="form-container">
@@ -42,7 +52,8 @@ const NewAuthForm = props => {
           onBlur={handleBlur}
           onChange={handleChange}
         />
-        {errors.username && <small>{errors.username}</small>}
+        {errors.password && <small>{errors.password}</small>}
+        {databaseError && <small>{databaseError}</small>}
         <button type="submit" disabled={loading}>
           {method}
         </button>
@@ -51,10 +62,10 @@ const NewAuthForm = props => {
   );
 };
 
-// const mapDispatch = dispatch => ({
-//   authorize: (formData, method) => {
-//     dispatch(authorizeThunk(formData, method));
-//   },
-// });
+const mapDispatch = dispatch => ({
+  authenticate: (formData, method) => {
+    dispatch(authorizeThunk(formData, method));
+  },
+});
 
-export default NewAuthForm;
+export default connect(null, mapDispatch)(NewAuthForm);
