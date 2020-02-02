@@ -1,51 +1,60 @@
-import React from 'react';
-import { authorizeThunk } from '../../store/user';
-import { connect } from 'react-redux';
+import React, { useState } from 'react';
+// import { authorizeThunk } from '../../store/user';
+// import { connect } from 'react-redux';
 import useValidation from './useValidation';
+import validateAuth from './validateAuth';
 
 const INITIAL_STATE = {
   username: '',
   password: '',
-  method: 'login',
 };
 
 const NewAuthForm = props => {
-  const { handleChange, values } = useValidation(INITIAL_STATE);
-  const { username, password, method } = values;
-  const otherMethod = method === 'login' ? 'signup' : 'login';
-
-  function handleSubmit(event) {
-    event.preventDefault();
-    props.authorize({ username, password }, method);
-  }
+  const method = 'login';
+  const {
+    handleChange,
+    handleSubmit,
+    handleBlur,
+    values,
+    errors,
+    loading,
+  } = useValidation(INITIAL_STATE, validateAuth);
 
   return (
     <div id="auth-form-container" className="form-container">
       <form onSubmit={handleSubmit}>
         <label htmlFor="username">username</label>
-        <input type="text" name="username" onChange={handleChange} />
+        <input
+          type="text"
+          name="username"
+          value={values.username}
+          className={errors.username && 'error-input'}
+          onBlur={handleBlur}
+          onChange={handleChange}
+        />
+        {errors.username && <small>{errors.username}</small>}
         <label htmlFor="password">password</label>
-        <input type="password" name="password" onChange={handleChange} />
-        <button type="submit">{method}</button>
+        <input
+          type="password"
+          name="password"
+          value={values.password}
+          className={errors.password && 'error-input'}
+          onBlur={handleBlur}
+          onChange={handleChange}
+        />
+        {errors.username && <small>{errors.username}</small>}
+        <button type="submit" disabled={loading}>
+          {method}
+        </button>
       </form>
-      <p
-        onClick={e => {
-          e.target.name = 'method';
-          e.target.value = otherMethod;
-          handleChange(e);
-          props.history.push(`/${otherMethod}`);
-        }}
-      >
-        {otherMethod} instead
-      </p>
     </div>
   );
 };
 
-const mapDispatch = dispatch => ({
-  authorize: (formData, method) => {
-    dispatch(authorizeThunk(formData, method));
-  },
-});
+// const mapDispatch = dispatch => ({
+//   authorize: (formData, method) => {
+//     dispatch(authorizeThunk(formData, method));
+//   },
+// });
 
-export default connect(null, mapDispatch)(NewAuthForm);
+export default NewAuthForm;

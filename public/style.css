@@ -63,6 +63,10 @@ input {
     border-radius: 5px;
 }
 
+.error-input {
+    border: 1px solid red;
+}
+
 button {
     padding: 10px;
     background-color: rgba(144, 238, 144, 0.479);
