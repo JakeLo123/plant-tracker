@@ -2,7 +2,7 @@ import React from 'react';
 import { authorizeThunk } from '../store/user';
 import { connect } from 'react-redux';
 import AuthForm from './AuthForm';
-import { Redirect } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
 
 class AuthFormContainer extends React.Component {
   constructor(props) {

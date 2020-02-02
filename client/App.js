@@ -14,6 +14,7 @@ const App = props => {
     <Switch>
       <Route path="/plants" component={MyPlants} />
       <Route path="/schedule" component={Schedule} />
+      <Route path="/" component={MyPlants} />
     </Switch>
   ) : (
     <Switch>

@@ -3,6 +3,7 @@ const app = express();
 const morgan = require('morgan');
 const { db } = require('./db');
 const path = require('path');
+const { notFound, errorHandler } = require('./middlewares');
 
 const session = require('express-session');
 const passport = require('passport');
@@ -34,7 +35,6 @@ function createApp() {
       saveUninitialized: true,
     })
   );
-
   app.use(morgan('dev'));
   app.use(express.static(path.join(__dirname, '..', 'public')));
   app.use(express.json());
@@ -47,11 +47,8 @@ function createApp() {
     res.sendFile(path.join(__dirname, '..', 'public/index.html'));
   });
 
-  app.use((err, req, res, next) => {
-    console.error(err);
-    console.error(err.stack);
-    res.status(500).send(err.message || 'internal server error');
-  });
+  app.use(notFound);
+  app.use(errorHandler);
 }
 
 const port = process.env.PORT || 3030;
