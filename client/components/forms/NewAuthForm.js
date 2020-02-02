@@ -10,8 +10,11 @@ const INITIAL_STATE = {
 };
 
 const NewAuthForm = props => {
-  const method = 'login';
-  const [databaseError, setDatabaseError] = useState(null);
+  const pathname =
+    props.location.pathname.slice(1) === 'signup' ? 'signup' : 'login';
+  const otherMethod = pathname === 'signup' ? 'login' : 'signup';
+  const [method, setMethod] = useState(pathname);
+
   const {
     handleChange,
     handleSubmit,
@@ -26,7 +29,6 @@ const NewAuthForm = props => {
       props.authenticate(values, method);
     } catch (err) {
       console.error('auth error', err);
-      setDatabaseError(err.message);
     }
   }
 
@@ -42,7 +44,9 @@ const NewAuthForm = props => {
           onBlur={handleBlur}
           onChange={handleChange}
         />
-        {errors.username && <small>{errors.username}</small>}
+        {errors.username && (
+          <small className="error-msg">* {errors.username}</small>
+        )}
         <label htmlFor="password">password</label>
         <input
           type="password"
@@ -52,12 +56,22 @@ const NewAuthForm = props => {
           onBlur={handleBlur}
           onChange={handleChange}
         />
-        {errors.password && <small>{errors.password}</small>}
-        {databaseError && <small>{databaseError}</small>}
+        {errors.password && (
+          <small className="error-msg">* {errors.password}</small>
+        )}
         <button type="submit" disabled={loading}>
           {method}
         </button>
       </form>
+      <div
+        id="method-option"
+        onClick={() => {
+          setMethod(otherMethod);
+          props.history.push(`/${otherMethod}`);
+        }}
+      >
+        {otherMethod} instead
+      </div>
     </div>
   );
 };

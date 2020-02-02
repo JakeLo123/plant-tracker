@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { getUserThunk } from './store/user';
-import { AuthFormContainer, MyPlants, Schedule } from './components';
-import NewAuthForm from './components/newAuth/NewAuthForm';
+import { MyPlants, Schedule } from './components';
+import NewAuthForm from './components/forms/NewAuthForm';
 import { Switch, Route } from 'react-router-dom';
 
 const App = props => {

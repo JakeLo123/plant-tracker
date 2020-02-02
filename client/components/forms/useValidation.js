@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { authorizeThunk } from '../../store/user';
-import { connect } from 'react-redux';
+import { useState, useEffect } from 'react';
 
 const useValidation = (initialState, validate, authenticate) => {
   const [values, setValues] = useState(initialState);
@@ -34,7 +32,6 @@ const useValidation = (initialState, validate, authenticate) => {
   function handleSubmit(event) {
     event.preventDefault();
     const validationErrors = validate(values);
-    console.log('authenticated...', values.username, values.password);
     setErrors(validationErrors);
     setLoading(true);
   }
