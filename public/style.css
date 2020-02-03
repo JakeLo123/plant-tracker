@@ -31,29 +31,32 @@ body {
 #app {
     margin: 0;
     padding: 0px;
-    justify-content: center;
 }
 
-#login-signup-container {
+.form-container {
+    position: absolute;
+    top: 10vh;
+    left: 50%;
+    margin-left: -100px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-}
-
-#login-signup-container > h2 {
-    margin: 15px 0 0 0;
 }
 
 form {
-    margin: 0;
+    background-color: rgb(120, 194, 120);
+    padding: 20px;
     display: flex;
     flex-direction: column;
     width: 200px;
+    border-radius: 5px;
+    -webkit-box-shadow: 1px 1px 5px black;
+    -moz-box-shadow: 1px 1px 5px black;
+    box-shadow: 1px 1px 5px black;
 }
 
-#username-and-email > * {
-    margin-top: 10px;
+label {
+    margin-top: 15px;
 }
 
 input {
@@ -63,27 +66,37 @@ input {
     border-radius: 5px;
 }
 
-button {
-    padding: 10px;
-    background-color: rgba(144, 238, 144, 0.479);
+form > button {
+    margin-top: 20px;
+    background-color: white;
+    cursor: pointer;
     border: 1px solid black;
     border-radius: 5px;
-    font-size: 20px;
-    cursor: pointer;
+    font-size: 18px;
+    padding: 5px;
+    outline: none;
 }
 
-button:hover {
+form > button:hover {
     background-color: white;
     transform: scale(1.1, 1.1)
 }
 
-#change-auth-method {
-    text-decoration: underline;
-    cursor: pointer;
-    align-self: center;
+.error-input {
+    border: 1px solid red;
 }
 
-#change-auth-method:hover {
+.error-msg {
+    color: red;
+}
+
+#method-option {
+    margin-top: 20px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+#method-option:hover {
     transform: scale(1.1, 1.1)
 }
 
