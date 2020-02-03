@@ -38,6 +38,9 @@ body {
     top: 10vh;
     left: 50%;
     margin-left: -100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 form {
@@ -88,13 +91,9 @@ form > button:hover {
 }
 
 #method-option {
-    border: 1px solid black;
-    border-radius: 5px;
-    padding: 3px;
     margin-top: 20px;
     text-decoration: underline;
     cursor: pointer;
-    text-align: center;
 }
 
 #method-option:hover {

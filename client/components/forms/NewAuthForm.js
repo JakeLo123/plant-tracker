@@ -34,6 +34,7 @@ const NewAuthForm = props => {
 
   return (
     <div id="auth-form-container" className="form-container">
+      <h1>Tandem Plant tracker</h1>
       <form onSubmit={handleSubmit}>
         <label htmlFor="username">username</label>
         <input
