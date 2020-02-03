@@ -44,6 +44,9 @@ body {
 }
 
 form {
+    animation: slide-in-from-right 0.2s;
+    animation-play-state: running;
+    z-index: 1;
     background-color: rgb(120, 194, 120);
     padding: 20px;
     display: flex;
@@ -55,6 +58,20 @@ form {
     box-shadow: 1px 1px 5px black;
 }
 
+#add-plant-modal {
+    -webkit-box-shadow: 10px 10px 25px black;
+    -moz-box-shadow: 10px 10px 25px black;
+    box-shadow: 10px 10px 25px black;
+}
+
+#add-plant-modal > form {
+    background-color: lightgreen;
+}
+
+form > h2 {
+    margin-top: -5px;
+}
+
 label {
     margin-top: 15px;
 }
@@ -64,6 +81,11 @@ input {
     padding: 7px;
     border: 1px solid black;
     border-radius: 5px;
+}
+
+#water-after-input > input {
+    max-width: 20px;
+    padding: 3px 0px 3px 5px;
 }
 
 form > button {
@@ -98,6 +120,15 @@ form > button:hover {
 
 #method-option:hover {
     transform: scale(1.1, 1.1)
+}
+
+.hide-modal {
+    position: absolute;
+    text-align: center;
+    padding: 0px;
+    top: 10px;
+    right: 10px;
+    width: 25px;
 }
 
 #navbar {
@@ -173,24 +204,7 @@ a {
     transform: scale(1.1, 1.1)
 }
 
-#add-plant-modal {
-    animation: slide-in-from-right 0.2s;
-    animation-play-state: running;
-    z-index: 1;
-    position: fixed;
-    padding: 0px 40px 40px 40px;
-    top: 20%;
-    left: 30%;
-    box-shadow: 5px 5px 20px black;
-    background-color: rgb(80, 133, 80);
-}
 
-#exit-modal {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 25px;
-}
 
 #schedule-container {
     padding: 0 20px;
