@@ -19,7 +19,7 @@
     "babel-loader": "^8.0.6",
     "connect-session-sequelize": "^6.0.0",
     "cron": "^1.7.2",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "express-session": "^1.17.0",
     "history": "^4.10.1",
     "morgan": "^1.9.1",
